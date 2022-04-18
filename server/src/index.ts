@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { bloggersRouter } from './routes/bloggers-router';
-import { postsRouter } from './routes/posts-router';
+import { usersRouter } from './routes/users-router';
 import { runDb } from './repositories/db';
 
 const app = express();
@@ -10,8 +9,7 @@ app.use(express.json());
 
 const port = process.env.PORT || 4000;
 
-app.use('/api/bloggers', bloggersRouter);
-app.use('/api/posts', postsRouter);
+app.use('/api/users', usersRouter);
 
 const startApp = async () => {
   await runDb();

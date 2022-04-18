@@ -4,7 +4,7 @@ export type UserType = {
   id: number;
   name: string;
   password: string;
-  role: 'ADMIN' | 'USER';
+  role: 'ADMIN' | 'USER' | 'MODERATOR';
   lvlPoint: number;
   money: number;
   popularPoint: number;

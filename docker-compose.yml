@@ -5,7 +5,16 @@ services:
   client:
     build: ./client
     restart: always
+    container_name: app-client
     ports:
       - '3000:3000'
     volumes:
       - ./client:/app
+  server:
+    build: ./server
+    restart: always
+    container_name: app-server
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./server:/app

@@ -10,5 +10,4 @@ RUN yarn install
 
 COPY . .
 
-CMD ["yarn", "watch"]
-CMD ["yarn", "dev"]
+CMD ["yarn", "dev2"]

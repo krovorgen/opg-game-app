@@ -1,0 +1,74 @@
+[
+  {
+    "_id": {"$oid": "625d6f0a8de2b55effb8b00c"},
+    "created": {"$date": "2022-04-18T14:18:01.192Z"},
+    "id": 0,
+    "lvlPoint": 0,
+    "money": 100,
+    "name": "Maksim",
+    "password": "1",
+    "popularPoint": 0,
+    "role": "ADMIN",
+    "updated": {"$date": "2022-04-18T20:15:15.162Z"}
+  },
+  {
+    "_id": {"$oid": "625dd001baa72f4fa2f4f274"},
+    "created": {"$date": "2022-04-18T20:54:25.273Z"},
+    "id": 1,
+    "lvlPoint": 0,
+    "money": 0,
+    "name": "Olga",
+    "password": "$2a$04$kz4UPRMXBFWNpdMQKSvc/.EcMcDuYzJ2h0T/cRGH9Grq1hKWuqVVe",
+    "popularPoint": 0,
+    "role": "USER",
+    "updated": {"$date": "2022-04-18T20:54:25.273Z"}
+  },
+  {
+    "_id": {"$oid": "625dd008baa72f4fa2f4f275"},
+    "created": {"$date": "2022-04-18T20:54:32.345Z"},
+    "id": 2,
+    "lvlPoint": 0,
+    "money": 0,
+    "name": "Vadim",
+    "password": "$2a$04$5rNO/LVlHp8GoN2WwUwnB.9ZfeL.YlL78/zRIyjcyg4wsLv0qkNGu",
+    "popularPoint": 0,
+    "role": "USER",
+    "updated": {"$date": "2022-04-18T20:54:32.345Z"}
+  },
+  {
+    "_id": {"$oid": "625dd00cbaa72f4fa2f4f276"},
+    "created": {"$date": "2022-04-18T20:54:36.496Z"},
+    "id": 3,
+    "lvlPoint": 0,
+    "money": 0,
+    "name": "Matvei",
+    "password": "$2a$04$/fSd2CMkx.VUq1un537xN.cCxy4MJvUCppwKGooqIyUo8fak3TzvC",
+    "popularPoint": 0,
+    "role": "USER",
+    "updated": {"$date": "2022-04-18T20:54:36.496Z"}
+  },
+  {
+    "_id": {"$oid": "625dd011baa72f4fa2f4f277"},
+    "created": {"$date": "2022-04-18T20:54:41.358Z"},
+    "id": 4,
+    "lvlPoint": 0,
+    "money": 0,
+    "name": "Tema",
+    "password": "$2a$04$gEKYkR4xkyb.jMmARrBseeprnf6NCUq0fS63fIPMcHvWyDG3Hu4la",
+    "popularPoint": 0,
+    "role": "USER",
+    "updated": {"$date": "2022-04-18T20:54:41.358Z"}
+  },
+  {
+    "_id": {"$oid": "625dd015baa72f4fa2f4f278"},
+    "created": {"$date": "2022-04-18T20:54:45.841Z"},
+    "id": 5,
+    "lvlPoint": 0,
+    "money": 0,
+    "name": "Sergey",
+    "password": "$2a$04$oWOyZqWFVCO7WArvQSWJ8OyNECVlD8fSTzXToVyT9Uj/UCH5v.eWm",
+    "popularPoint": 0,
+    "role": "USER",
+    "updated": {"$date": "2022-04-18T20:54:45.841Z"}
+  }
+]

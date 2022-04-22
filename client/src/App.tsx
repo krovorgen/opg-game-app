@@ -1,10 +1,28 @@
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import {useEffect, useState} from "react";
+import axios, {AxiosResponse} from "axios";
 
 function App() {
+  const [mockData, setMockData] = useState([])
+
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await axios.get<AxiosResponse>("http://localhost:4000/api/users")
+      // @ts-ignore
+      setMockData(user.data || [])
+    }
+
+    getUser()
+  }, [])
+
   return (
     <div className="App">
+      <ul>
+
+      {mockData.length > 0 && mockData.map(item => <li>{JSON.stringify(item)}</li>)}
+      </ul>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
@@ -48,6 +66,6 @@ function App() {
       </header>
     </div>
   );
-};
+}
 
 export default App;

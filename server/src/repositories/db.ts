@@ -1,8 +1,12 @@
 import { MongoClient } from 'mongodb';
 
-const mongoUri = process.env.mongoURI || 'mongodb://0.0.0.0:27017/?maxPoolSize=20&w=majority';
+const host = process.env.MONGO_URL || 'localhost';
+const mongoUri = `mongodb://${host}/heroes`;
 
-export const client = new MongoClient(mongoUri);
+const options = { useNewUrlParser: true };
+
+// @ts-ignore
+export const client = new MongoClient(mongoUri, options);
 
 export async function runDb() {
   try {

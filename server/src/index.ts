@@ -16,7 +16,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 const startApp = async () => {
-  // await runDb();
+  await runDb();
 
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

@@ -21,20 +21,8 @@ export const usersRepository = {
   async getById(id: number): Promise<UserType | null> {
     return await users.findOne({ id }, { projection: { _id: 0 } });
   },
-  async create(name: string, password: string): Promise<void> {
-    const nextId = await usersRepository.get();
-
-    await users.insertOne({
-      id: nextId.length,
-      name,
-      password,
-      role: 'USER',
-      lvlPoint: 0,
-      money: 0,
-      popularPoint: 0,
-      updated: new Date(),
-      created: new Date(),
-    });
+  async create(newUser: UserType): Promise<void> {
+    await users.insertOne(newUser);
   },
   async deleteById(id: number): Promise<void> {
     await users.deleteOne({ id });

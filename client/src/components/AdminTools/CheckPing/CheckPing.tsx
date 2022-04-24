@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 
-import { apiHelpers } from '@/api/helpers';
+import { apiHelpers } from '../../../api/helpers';
 
 import stylesRoot from '../AdminTools.module.scss';
 import styles from './CheckPing.module.scss';

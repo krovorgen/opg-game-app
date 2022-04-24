@@ -1,6 +1,6 @@
 import { instance } from './config';
 
-export type CheckPingResponse = {
+type CheckPingResponse = {
   ping: string;
 };
 

@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 
 import { CheckPing } from './CheckPing';
+import { ViewRoutes } from './ViewRoutes';
 
 import styles from './AdminTools.module.scss';
 
@@ -14,7 +15,7 @@ export const AdminTools: FC = () => {
       {showMenu && (
         <ul className={styles.items}>
           <CheckPing />
-          <li className={styles.item}>View route</li>
+          <ViewRoutes />
         </ul>
       )}
       <button className={styles.root} onClick={changeVisibleMenu}>

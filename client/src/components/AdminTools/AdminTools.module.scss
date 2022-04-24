@@ -17,7 +17,14 @@
   box-shadow: 0 0 5px rgb(0, 0, 0, 50%);
   font-weight: 700;
   font-size: 24px;
-  background-color: transparent;
+  color: #181818;
+  background-color: #fff;
+
+  &:hover {
+    color: #fff;
+    background-color: #181818;
+    transition: background-color 0.3s, color 0.3s;
+  }
 }
 
 .items {

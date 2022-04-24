@@ -15,6 +15,10 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello world');
 });
 
+app.get('/api/auth/me', (req: Request, res: Response) => {
+  res.send(200);
+});
+
 const startApp = async () => {
   await runDb();
 

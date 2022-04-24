@@ -1,0 +1,20 @@
+@import "./src/scss/helpers/variables";
+@import "./src/scss/helpers/mixins";
+
+.ping {
+  padding-left: 8px;
+  font-weight: 700;
+  font-size: 16px;
+
+  &.low {
+    color: #50e3c2;
+  }
+
+  &.medium {
+    color: #d5d500;
+  }
+
+  &.high {
+    color: #f00;
+  }
+}

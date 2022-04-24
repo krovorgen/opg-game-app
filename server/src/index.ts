@@ -19,8 +19,15 @@ app.get('/api/auth/me', (req: Request, res: Response) => {
   res.send(200);
 });
 
+app.post('/api/ping', (req: Request, res: Response) => {
+  const nowTime = +new Date();
+  const frontTime = +new Date(req.body.frontTime);
+
+  res.status(200).json({ ping: nowTime - frontTime });
+});
+
 const startApp = async () => {
-  await runDb();
+  // await runDb();
 
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

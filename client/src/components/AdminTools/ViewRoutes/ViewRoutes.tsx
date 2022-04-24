@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import cn from 'classnames';
+import { NavLink } from 'react-router-dom';
 
 import { AppRoutes } from '../../../helpers/routes';
 
@@ -16,15 +17,22 @@ export const ViewRoutes = () => {
   return (
     <li className={cn(stylesRoot.item, styles.root)} onClick={showRoutes}>
       <span>View route</span>
-      <ul className={styles.items}>
-        {visibleRoutes &&
-          Object.entries(JSON.parse(JSON.stringify(AppRoutes))).map(([key, value]) => (
+      {visibleRoutes && (
+        <ul className={styles.items}>
+          {Object.entries(JSON.parse(JSON.stringify(AppRoutes))).map(([key, value]) => (
             <li key={key} className={styles.item}>
-              {key as string} : {value as string}
+              <NavLink
+                to={value as string}
+                className={(props) =>
+                  `${cn({ [styles.linkActive]: props.isActive })} ${styles.link}`
+                }>
+                {key as string} : {value as string}
+              </NavLink>
             </li>
           ))}
-        <li className={styles.item}></li>
-      </ul>
+          <li className={styles.item}></li>
+        </ul>
+      )}
     </li>
   );
 };

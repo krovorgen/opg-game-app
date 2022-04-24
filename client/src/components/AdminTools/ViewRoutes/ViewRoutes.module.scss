@@ -13,3 +13,13 @@
 .item {
   text-align: left;
 }
+
+.link {
+  &:hover {
+    color: #5ac8fa;
+  }
+
+  &.linkActive {
+    color: #5ac8fa;
+  }
+}

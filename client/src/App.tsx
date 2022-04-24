@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { Root } from './pages/Root';
 import { Registration } from './pages/Registration';
@@ -9,13 +9,11 @@ import { AdminTools } from './components/AdminTools';
 export const App = () => {
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route path={AppRoutes.Root} element={<Root />} />
-          <Route path={AppRoutes.Login} element={<Login />} />
-          <Route path={AppRoutes.Registration} element={<Registration />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path={AppRoutes.Root} element={<Root />} />
+        <Route path={AppRoutes.Login} element={<Login />} />
+        <Route path={AppRoutes.Registration} element={<Registration />} />
+      </Routes>
       <AdminTools />
     </>
   );

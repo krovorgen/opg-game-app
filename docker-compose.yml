@@ -5,6 +5,6 @@ services:
   mongodb:
     image: mongo
     volumes:
-      - ./mongodb:/data/db
+      - ./mongodb:/data/db:cached
     ports:
       - 27017:27017

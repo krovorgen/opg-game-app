@@ -8,11 +8,12 @@ export const usersService = {
   async getById(id: number): Promise<UserType | null> {
     return await usersRepository.getById(id);
   },
-  async create(name: string, password: string): Promise<void> {
-    let classNewUser = new User(name, password);
-    await classNewUser.init();
-
-    await usersRepository.create(classNewUser);
+  async getByLogin(login: string): Promise<UserType | null> {
+    return await usersRepository.getByLogin(login);
+  },
+  async create(login: string, password: string): Promise<void> {
+    let createdUser = await new User(login, password).getUser();
+    await usersRepository.create(createdUser);
   },
   async deleteById(id: number): Promise<void> {
     return await usersRepository.deleteById(id);

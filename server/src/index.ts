@@ -1,8 +1,10 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+
 import { usersRouter } from './routes/users-router';
 import { runDb } from './repositories/db';
+import { authRouter } from './routes/auth-router';
 
 const app = express();
 app.use(cors());
@@ -11,13 +13,10 @@ app.use(express.json());
 const port = process.env.PORT || 4000;
 
 app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello world');
-});
-
-app.get('/api/auth/me', (req: Request, res: Response) => {
-  res.send(200);
 });
 
 app.post('/api/ping', (req: Request, res: Response) => {

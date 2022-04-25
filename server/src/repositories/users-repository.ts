@@ -10,6 +10,9 @@ export const usersRepository = {
   async getById(id: number): Promise<UserType | null> {
     return await users.findOne({ id }, { projection: { _id: 0 } });
   },
+  async getByLogin(login: string): Promise<UserType | null> {
+    return await users.findOne({ login }, { projection: { _id: 0 } });
+  },
   async create(newUser: UserType): Promise<void> {
     await users.insertOne(newUser);
   },

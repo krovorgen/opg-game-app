@@ -4,7 +4,7 @@ export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 
 export type UserType = {
   id: number;
-  name: string;
+  login: string;
   passwordSalt: string;
   passwordHash: string;
   role: UserRoleType;
@@ -17,7 +17,7 @@ export type UserType = {
 
 export class User {
   id: number = +new Date();
-  name: string;
+  login: string;
   private readonly password: string;
   passwordSalt: string = '';
   passwordHash: string = '';
@@ -28,12 +28,10 @@ export class User {
   updated: Date = new Date();
   created: Date = new Date();
 
-  constructor(name: string, password: string) {
-    this.name = name;
+  constructor(login: string, password: string) {
+    this.login = login;
     this.password = password;
   }
-
-  static build() {}
 
   private generateSalt = async () => {
     this.passwordSalt = await bcrypt.genSalt(2);
@@ -43,8 +41,21 @@ export class User {
     this.passwordHash = await bcrypt.hash(this.password, this.passwordSalt);
   };
 
-  async init() {
+  async getUser(): Promise<UserType> {
     await this.generateSalt();
     await this.generateHash();
+
+    return {
+      id: this.id,
+      login: this.login,
+      passwordSalt: this.passwordSalt,
+      passwordHash: this.passwordHash,
+      role: this.role,
+      lvlPoint: this.lvlPoint,
+      money: this.money,
+      popularPoint: this.popularPoint,
+      updated: this.updated,
+      created: this.created,
+    };
   }
 }

@@ -1,16 +1,5 @@
 import { client } from './db';
-
-export type UserType = {
-  id: number;
-  name: string;
-  password: string;
-  role: 'ADMIN' | 'USER' | 'MODERATOR';
-  lvlPoint: number;
-  money: number;
-  popularPoint: number;
-  updated: Date;
-  created: Date;
-};
+import { UserType } from '../helpers/user';
 
 export let users = client.db('test').collection<UserType>('users');
 

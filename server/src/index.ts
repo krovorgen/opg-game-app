@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import { usersRouter } from './routes/users-router';
@@ -27,7 +28,7 @@ app.post('/api/ping', (req: Request, res: Response) => {
 });
 
 const startApp = async () => {
-  // await runDb();
+  await runDb();
 
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);

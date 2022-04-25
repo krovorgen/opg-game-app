@@ -1,12 +1,9 @@
 import { MongoClient } from 'mongodb';
 
-const host = process.env.MONGO_URL || 'localhost';
-const mongoUri = `mongodb://${host}/heroes`;
+const host = !process.env.MONGO_URL || 'localhost:27017';
+const mongoUri = `mongodb://${host}/test`;
 
-const options = { useNewUrlParser: true };
-
-// @ts-ignore
-export const client = new MongoClient(mongoUri, options);
+export const client = new MongoClient(mongoUri);
 
 export async function runDb() {
   try {

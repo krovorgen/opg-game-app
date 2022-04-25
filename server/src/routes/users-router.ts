@@ -1,6 +1,5 @@
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
-import bcrypt from 'bcryptjs';
 
 import { userExistsMiddleware } from '../middleware/user-exists-middleware';
 import { inputValidatorMiddleware } from '../middleware/input-validator-middleware';
@@ -22,11 +21,7 @@ usersRouter
     body('password').notEmpty(),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
-      const name = req.body.name;
-      const passwordHash = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(2));
-      const checkPassword = bcrypt.compareSync('1', passwordHash);
-
-      await usersService.create(name, passwordHash);
+      await usersService.create(req.body.name, req.body.password);
       res.sendStatus(201);
     }
   )

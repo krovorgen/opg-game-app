@@ -28,7 +28,7 @@ export const CheckPing = () => {
             [styles.medium]: pingValue >= 51 && pingValue <= 130,
             [styles.high]: pingValue >= 131,
           })}>
-          {pingValue ? <Loader /> : pingValue}
+          {!pingValue ? <Loader /> : pingValue}
         </mark>
       )}
     </li>

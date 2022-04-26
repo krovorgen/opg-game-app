@@ -13,6 +13,9 @@ export const usersRepository = {
   async getByLogin(login: string): Promise<UserType | null> {
     return await users.findOne({ login }, { projection: { _id: 0 } });
   },
+  async getByNickname(nickname: string): Promise<UserType | null> {
+    return await users.findOne({ nickname }, { projection: { _id: 0 } });
+  },
   async create(newUser: UserType): Promise<void> {
     await users.insertOne(newUser);
   },

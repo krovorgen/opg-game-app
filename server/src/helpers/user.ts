@@ -4,7 +4,7 @@ export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 
 export type UserType = {
   id: number;
-  login: string;
+  email: string;
   nickname: string;
   passwordSalt: string;
   passwordHash: string;
@@ -18,7 +18,7 @@ export type UserType = {
 
 export class User {
   id: number = +new Date();
-  login: string;
+  email: string;
   nickname: string;
   private readonly password: string;
   passwordSalt: string = '';
@@ -30,8 +30,8 @@ export class User {
   updated: Date = new Date();
   created: Date = new Date();
 
-  constructor(login: string, password: string, nickname: string) {
-    this.login = login;
+  constructor(email: string, password: string, nickname: string) {
+    this.email = email;
     this.password = password;
     this.nickname = nickname;
   }
@@ -50,7 +50,7 @@ export class User {
 
     return {
       id: this.id,
-      login: this.login,
+      email: this.email,
       nickname: this.nickname,
       passwordSalt: this.passwordSalt,
       passwordHash: this.passwordHash,

@@ -1,2 +1,30 @@
 @import "./src/scss/helpers/variables";
 @import "./src/scss/helpers/mixins";
+
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.box {
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.input {
+  margin-bottom: 8px;
+}
+
+.submit {
+  margin-top: 16px;
+}

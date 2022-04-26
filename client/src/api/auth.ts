@@ -4,7 +4,7 @@ export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 
 export type UserType = {
   id: number;
-  login: string;
+  email: string;
   nickname: string;
   passwordSalt: string;
   passwordHash: string;
@@ -16,14 +16,14 @@ export type UserType = {
   created: Date;
 };
 
-export const authAPI = {
+export const apiAuth = {
   checkLogin() {
     return instance.get('auth/me');
   },
-  login(login: string, password: string) {
-    return instance.post('auth/login', { login, password });
+  login(email: string, password: string) {
+    return instance.post('auth/login', { email, password });
   },
-  registration(login: string, password: string, nickname: string) {
-    return instance.post('auth/registration', { login, password, nickname });
+  registration(email: string, password: string, nickname: string) {
+    return instance.post('auth/registration', { email, password, nickname });
   },
 };

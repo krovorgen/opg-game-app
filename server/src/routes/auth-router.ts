@@ -23,6 +23,15 @@ authRouter
       res.sendStatus(201);
     }
   )
+  .post(
+    '/login',
+    body('login').toLowerCase().notEmpty(),
+    body('password').notEmpty(),
+    inputValidatorMiddleware,
+    async (req: Request, res: Response) => {
+      res.sendStatus(200);
+    }
+  )
   .get('/me', (req: Request, res: Response) => {
     res.send(200);
   });

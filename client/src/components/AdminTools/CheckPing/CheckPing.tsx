@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
+import { Loader } from '@alfalab/core-components/loader';
 
 import { apiHelpers } from '../../../api/helpers';
 
@@ -27,7 +28,7 @@ export const CheckPing = () => {
             [styles.medium]: pingValue >= 51 && pingValue <= 130,
             [styles.high]: pingValue >= 131,
           })}>
-          {pingValue}
+          {pingValue ? <Loader /> : pingValue}
         </mark>
       )}
     </li>

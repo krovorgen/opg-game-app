@@ -5,8 +5,10 @@ import { Registration } from './pages/Registration';
 import { Login } from './pages/Login';
 import { AppRoutes } from './helpers/routes';
 import { AdminTools } from './components/AdminTools';
+import { useAppSelector } from './redux/hooks';
 
 export const App = () => {
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
   return (
     <>
       <Routes>

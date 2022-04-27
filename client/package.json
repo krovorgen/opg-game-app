@@ -32,9 +32,6 @@
     "eject": "react-scripts eject",
     "stylelint:fix": "stylelint \"**/*{.css,.scss}\" --fix"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "devDependencies": {
     "prettier": "^2.6.2",
     "stylelint": "^13.13.1",

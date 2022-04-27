@@ -26,10 +26,20 @@ authRouter
   .post(
     '/login',
     body('email').toLowerCase().notEmpty(),
-    body('password').notEmpty(),
+    body('password')
+      .isLength({ min: 1, max: 28 })
+      .withMessage('password can contain from 1 to 28 characters')
+      .notEmpty(),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
-      res.sendStatus(200);
+      const result = await usersService.checkCredentials(req.body.email, req.body.password);
+      if (result) {
+        res.sendStatus(201);
+      } else {
+        res.status(400).json({
+          errors: [{ message: 'Неверная почта или пароль', field: 'email or password' }],
+        });
+      }
     }
   )
   .get('/me', (req: Request, res: Response) => {

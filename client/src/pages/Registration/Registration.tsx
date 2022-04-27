@@ -4,12 +4,14 @@ import { Input } from '@alfalab/core-components/input';
 import { PasswordInput } from '@alfalab/core-components/password-input';
 import { Button } from '@alfalab/core-components/button';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 import { validateEmail } from '../../helpers/validateEmail';
-
-import styles from './Registration.module.scss';
+import { AppRoutes } from '../../helpers/routes';
 import { apiAuth } from '../../api/auth';
 import { catchHandler } from '../../helpers/catchHandler';
+
+import styles from './Registration.module.scss';
 
 export const Registration = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -31,10 +33,11 @@ export const Registration = () => {
     };
 
     if (!validateEmail(email.value)) {
-      toast.error('Некорректно указан e-mail');
+      toast.error('Некорректно указана почта');
       setLoadingStatusBtn(false);
       return;
     }
+
     try {
       await apiAuth.registration(email.value, password.value, nickname.value);
       toast.success('Благодарим Вас за регистрацию!');
@@ -49,13 +52,13 @@ export const Registration = () => {
     <div className={styles.root}>
       <div className={styles.box}>
         <Typography.Title className={styles.title} tag="h1" view="small">
-          Registration
+          Регистрация
         </Typography.Title>
-        <form onSubmit={submitRegistration}>
-          <Input className={styles.input} label="email" name="email" size="s" block />
+        <form className={styles.form} onSubmit={submitRegistration}>
+          <Input className={styles.input} label="Почта" name="email" size="s" block />
           <Input
             className={styles.input}
-            label="nickname"
+            label="Имя в игре"
             name="nickname"
             size="s"
             block
@@ -64,7 +67,7 @@ export const Registration = () => {
           />
           <PasswordInput
             className={styles.input}
-            label="password"
+            label="Пароль"
             name="password"
             size="s"
             block
@@ -82,6 +85,12 @@ export const Registration = () => {
             Зарегистрироваться
           </Button>
         </form>
+
+        <Link to={AppRoutes.Login}>
+          <Button Component="span" size="s" block>
+            Войти в аккаунт
+          </Button>
+        </Link>
       </div>
     </div>
   );

@@ -9,8 +9,14 @@ export const usersService = {
     return await usersRepository.getById(id);
   },
   async create(email: string, password: string, nickname: string): Promise<void> {
-    let createdUser = await new User(email, password, nickname).getUser();
+    let createdUser = await new User().createUser(email, password, nickname);
     await usersRepository.create(createdUser);
+  },
+  async checkCredentials(email: string, password: string): Promise<boolean> {
+    const user = await usersRepository.getByEmail(email);
+    if (!user) return false;
+    const passwordHash = await new User().generateHash(password, user.passwordSalt);
+    return passwordHash === user.passwordHash;
   },
   async deleteById(id: number): Promise<void> {
     return await usersRepository.deleteById(id);

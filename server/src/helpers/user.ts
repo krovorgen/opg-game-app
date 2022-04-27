@@ -17,49 +17,30 @@ export type UserType = {
 };
 
 export class User {
-  id: number = +new Date();
-  email: string;
-  nickname: string;
-  private readonly password: string;
-  passwordSalt: string = '';
-  passwordHash: string = '';
-  role: UserRoleType = 'USER';
-  lvlPoint: number = 0;
-  money: number = 0;
-  popularPoint: number = 0;
-  updated: Date = new Date();
-  created: Date = new Date();
-
-  constructor(email: string, password: string, nickname: string) {
-    this.email = email;
-    this.password = password;
-    this.nickname = nickname;
-  }
-
   private generateSalt = async () => {
-    this.passwordSalt = await bcrypt.genSalt(2);
+    return await bcrypt.genSalt(2);
   };
 
-  private generateHash = async () => {
-    this.passwordHash = await bcrypt.hash(this.password, this.passwordSalt);
+  generateHash = async (password: string, passwordSalt: string) => {
+    return await bcrypt.hash(password, passwordSalt);
   };
 
-  async getUser(): Promise<UserType> {
-    await this.generateSalt();
-    await this.generateHash();
+  async createUser(email: string, password: string, nickname: string): Promise<UserType> {
+    const passwordSalt = await this.generateSalt();
+    const passwordHash = await this.generateHash(password, passwordSalt);
 
     return {
-      id: this.id,
-      email: this.email,
-      nickname: this.nickname,
-      passwordSalt: this.passwordSalt,
-      passwordHash: this.passwordHash,
-      role: this.role,
-      lvlPoint: this.lvlPoint,
-      money: this.money,
-      popularPoint: this.popularPoint,
-      updated: this.updated,
-      created: this.created,
+      id: +new Date(),
+      email,
+      nickname,
+      passwordSalt,
+      passwordHash,
+      role: 'USER',
+      lvlPoint: 0,
+      money: 0,
+      popularPoint: 0,
+      updated: new Date(),
+      created: new Date(),
     };
   }
 }

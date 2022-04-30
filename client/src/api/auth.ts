@@ -18,7 +18,7 @@ export type UserType = {
 
 export const apiAuth = {
   checkLogin() {
-    return instance.get('auth/me');
+    return instance.get<UserType>('auth/me');
   },
   login(email: string, password: string) {
     return instance.post('auth/login', { email, password });

@@ -4,16 +4,19 @@ import { Typography } from '@alfalab/core-components/typography';
 import { Input } from '@alfalab/core-components/input';
 import { Button } from '@alfalab/core-components/button';
 import { PasswordInput } from '@alfalab/core-components/password-input';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { AppRoutes } from '../../helpers/routes';
-
-import styles from './Login.module.scss';
 import { validateEmail } from '../../helpers/validateEmail';
 import { apiAuth } from '../../api/auth';
 import { catchHandler } from '../../helpers/catchHandler';
+import { useAppSelector } from '../../redux/hooks';
+
+import styles from './Login.module.scss';
 
 export const Login = () => {
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
 
@@ -46,6 +49,9 @@ export const Login = () => {
     }
   }, []);
 
+  if (isLoggedIn) {
+    return <Navigate to={AppRoutes.Root} />;
+  }
   return (
     <div className={styles.root}>
       <div className={styles.box}>

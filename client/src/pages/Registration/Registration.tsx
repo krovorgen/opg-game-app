@@ -4,16 +4,19 @@ import { Input } from '@alfalab/core-components/input';
 import { PasswordInput } from '@alfalab/core-components/password-input';
 import { Button } from '@alfalab/core-components/button';
 import { toast } from 'react-toastify';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { validateEmail } from '../../helpers/validateEmail';
 import { AppRoutes } from '../../helpers/routes';
 import { apiAuth } from '../../api/auth';
 import { catchHandler } from '../../helpers/catchHandler';
+import { useAppSelector } from '../../redux/hooks';
 
 import styles from './Registration.module.scss';
 
 export const Registration = () => {
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
 
@@ -47,6 +50,10 @@ export const Registration = () => {
       setLoadingStatusBtn(false);
     }
   }, []);
+
+  if (isLoggedIn) {
+    return <Navigate to={AppRoutes.Root} />;
+  }
 
   return (
     <div className={styles.root}>

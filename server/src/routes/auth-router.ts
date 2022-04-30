@@ -42,6 +42,7 @@ authRouter
       }
     }
   )
-  .get('/me', (req: Request, res: Response) => {
-    res.send(200);
+  .get('/me', async (req: Request, res: Response) => {
+    res.sendStatus(400);
+    // res.send(await usersService.getById(0));
   });

@@ -1,18 +1,28 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { apiAuth, UserType } from '../../api/auth';
+import { setInitializedStatus } from './appReducer';
+import { catchHandler } from '../../helpers/catchHandler';
 
-export type CounterState = {
+export type UserInitialState = {
   isLoggedIn: boolean;
   user: UserType | null;
 };
 
-const initialState: CounterState = {
+const initialState: UserInitialState = {
   isLoggedIn: false,
   user: null,
 };
 
-const checkLoginThunk = createAsyncThunk('user/checkLogged', async () => {
-  await apiAuth.checkLogin();
+export const initializedTC = createAsyncThunk('user/checkLogged', async (_, { dispatch }) => {
+  try {
+    const res = await apiAuth.checkLogin();
+    dispatch(changeLoggedStatus(true));
+    dispatch(setUser(res.data));
+  } catch ({ response }) {
+    catchHandler(response);
+  } finally {
+    dispatch(setInitializedStatus(true));
+  }
 });
 
 const slice = createSlice({
@@ -22,9 +32,12 @@ const slice = createSlice({
     changeLoggedStatus: (state, action: PayloadAction<boolean>) => {
       state.isLoggedIn = action.payload;
     },
+    setUser: (state, action: PayloadAction<UserType>) => {
+      state.user = action.payload;
+    },
   },
 });
 
-export const { changeLoggedStatus } = slice.actions;
+export const { changeLoggedStatus, setUser } = slice.actions;
 
 export const userReducer = slice.reducer;

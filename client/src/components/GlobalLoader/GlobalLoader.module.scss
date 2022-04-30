@@ -1,0 +1,15 @@
+@import "./src/scss/helpers/variables";
+@import "./src/scss/helpers/mixins";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.text {
+  margin-top: 4px;
+  font-size: 20px;
+}

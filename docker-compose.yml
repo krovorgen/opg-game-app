@@ -14,6 +14,8 @@ services:
     container_name: app-client
     depends_on:
       - server
+    environment:
+      - REACT_APP_API_URI=http://localhost:4000/api/
     ports:
       - '3000:3000'
     volumes:

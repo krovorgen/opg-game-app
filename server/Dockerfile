@@ -7,7 +7,6 @@ EXPOSE 4000
 COPY package*.json ./
 COPY yarn.lock ./
 RUN yarn install
-RUN npm install --global --unsafe-perm concurrently
 COPY . .
 
 CMD ["yarn", "dev:watch"]

@@ -27,7 +27,8 @@
   },
   "scripts": {
     "start": "./node_modules/.bin/react-scripts start",
-    "build": "react-scripts build",
+    "build": "./node_modules/.bin/react-scripts build",
+    "start:serve": "serve -s build -n -l 80 ",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "stylelint:fix": "stylelint \"**/*{.css,.scss}\" --fix"

@@ -13,7 +13,7 @@ usersRouter
   })
   .get(
     '/:userId',
-    param('userId').custom(userExistsMiddleware),
+    param('userId').custom(userExistsMiddleware.byUserId),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
       const id = req.params.userId;
@@ -22,7 +22,7 @@ usersRouter
   )
   .delete(
     '/:userId',
-    param('userId').custom(userExistsMiddleware),
+    param('userId').custom(userExistsMiddleware.byUserId),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
       const id = req.params.userId;

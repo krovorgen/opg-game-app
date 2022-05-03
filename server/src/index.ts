@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 
 import { usersRouter } from './routes/users-router';
 import { runDb } from './repositories/db';
@@ -11,16 +10,16 @@ import { settings } from './helpers/settings';
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(cookieParser());
 
 const port = settings.PORT;
 
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world');
-});
+// app.use(express.static(path.join(__dirname, '../../client/build')));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+// });
 
 app.post('/api/ping', (req: Request, res: Response) => {
   const nowTime = +new Date();

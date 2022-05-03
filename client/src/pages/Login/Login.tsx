@@ -5,17 +5,18 @@ import { Input } from '@alfalab/core-components/input';
 import { Button } from '@alfalab/core-components/button';
 import { PasswordInput } from '@alfalab/core-components/password-input';
 import { Link, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import { AppRoutes } from '../../helpers/routes';
 import { validateEmail } from '../../helpers/validateEmail';
-import { apiAuth } from '../../api/auth';
-import { catchHandler } from '../../helpers/catchHandler';
 import { useAppSelector } from '../../redux/hooks';
+import { loginUserTC } from '../../redux/reducer/authReducer';
 
 import styles from './Login.module.scss';
 
 export const Login = () => {
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const dispatch = useDispatch();
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
@@ -39,14 +40,8 @@ export const Login = () => {
       return;
     }
 
-    try {
-      await apiAuth.login(email.value, password.value);
-      toast.success('Вход выполнен успешно');
-    } catch ({ response }) {
-      catchHandler(response);
-    } finally {
-      setLoadingStatusBtn(false);
-    }
+    await dispatch(loginUserTC({ email: email.value, password: password.value }));
+    setLoadingStatusBtn(false);
   }, []);
 
   if (isLoggedIn) {

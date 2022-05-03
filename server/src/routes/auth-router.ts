@@ -7,6 +7,8 @@ import { uniqueEmailMiddleware } from '../middleware/unique-email-middleware';
 import { uniqueNicknameMiddleware } from '../middleware/unique-nickname-middleware';
 import { jwtService } from '../application/jwtService';
 import { userExistsMiddleware } from '../middleware/user-exists-middleware';
+import { validateToken } from '../middleware/validate-token-middleware';
+import { usersRepository } from '../repositories/users-repository';
 
 export const authRouter = Router({});
 
@@ -36,8 +38,10 @@ authRouter
     async (req: Request, res: Response) => {
       const result = await usersService.checkCredentials(req.body.email, req.body.password);
       if (result) {
-        const token = await jwtService.createJWT(result);
-        res.status(201).send(token);
+        const token = jwtService.createJWT(result);
+        res.status(201).json({
+          token: `Bearer ${token}`,
+        });
       } else {
         res.status(400).json({
           errors: [{ message: 'Неверная почта или пароль', field: 'email or password' }],
@@ -45,8 +49,8 @@ authRouter
       }
     }
   )
-  .get('/me', async (req: Request, res: Response) => {
-    console.log(req.cookies);
-    res.sendStatus(400);
-    // res.send(await usersService.getById(0));
+  .post('/me', validateToken, async (req: Request, res: Response) => {
+    const userId = req.tokenData.userId;
+    const user = await usersRepository.getById(userId);
+    res.status(201).send(user);
   });

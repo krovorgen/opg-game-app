@@ -8,17 +8,22 @@ import { Login } from './pages/Login';
 import { AppRoutes } from './helpers/routes';
 import { AdminTools } from './components/AdminTools';
 import { useAppSelector } from './redux/hooks';
-import { initializedTC } from './redux/reducer/userReducer';
+import { initializedTC } from './redux/reducer/authReducer';
 import { GlobalLoader } from './components/GlobalLoader';
 
 export const App = () => {
   const isInitializedApp = useAppSelector((state) => state.app.isInitializedApp);
-  const userRole = useAppSelector((state) => state.user.user?.role);
+  const userRole = useAppSelector((state) => state.auth.user?.role);
+  const token = useAppSelector((state) => state.auth.token);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(initializedTC());
-  }, [dispatch]);
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    localStorage.setItem('token', token);
+  }, [token]);
 
   if (!isInitializedApp) return <GlobalLoader />;
 

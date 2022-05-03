@@ -8,7 +8,7 @@ export const usersRepository = {
     return await users.find({}, { projection: { _id: 0 } }).toArray();
   },
   async getById(id: number): Promise<UserType | null> {
-    return await users.findOne({ id }, { projection: { _id: 0 } });
+    return await users.findOne({ id }, { projection: { _id: 0, passwordSalt: 0, passwordHash: 0 } });
   },
   async getByEmail(email: string): Promise<UserType | null> {
     return await users.findOne({ email }, { projection: { _id: 0 } });

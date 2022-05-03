@@ -15,7 +15,7 @@ import { useAppSelector } from '../../redux/hooks';
 import styles from './Registration.module.scss';
 
 export const Registration = () => {
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);

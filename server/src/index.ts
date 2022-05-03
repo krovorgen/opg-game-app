@@ -1,16 +1,19 @@
 import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import { usersRouter } from './routes/users-router';
 import { runDb } from './repositories/db';
 import { authRouter } from './routes/auth-router';
+import { settings } from './helpers/settings';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
-const port = process.env.PORT || 4000;
+const port = settings.PORT;
 
 app.use('/api/users', usersRouter);
 app.use('/api/auth', authRouter);

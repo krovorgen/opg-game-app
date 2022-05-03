@@ -1,6 +1,7 @@
 import { MongoClient } from 'mongodb';
+import { settings } from '../helpers/settings';
 
-const host = !process.env.MONGO_URL || 'localhost:27017';
+const host = settings.MONGO_URL;
 const mongoUri = `mongodb://${host}/test`;
 
 export const client = new MongoClient(mongoUri);

@@ -1,12 +1,13 @@
 import React from 'react';
-
-import styles from './Root.module.scss';
 import { Navigate } from 'react-router-dom';
+
 import { AppRoutes } from '../../helpers/routes';
 import { useAppSelector } from '../../redux/hooks';
 
+import styles from './Root.module.scss';
+
 export const Root = () => {
-  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
 
   if (!isLoggedIn) {
     return <Navigate to={AppRoutes.Login} />;

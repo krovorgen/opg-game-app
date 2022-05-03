@@ -25,24 +25,27 @@ export const Login = () => {
     setPasswordVisible((v) => !v);
   }, []);
 
-  const submitLogin = useCallback(async (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoadingStatusBtn(true);
+  const submitLogin = useCallback(
+    async (e: SyntheticEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoadingStatusBtn(true);
 
-    const { email, password } = e.currentTarget.elements as typeof e.currentTarget.elements & {
-      email: { value: string };
-      password: { value: string };
-    };
+      const { email, password } = e.currentTarget.elements as typeof e.currentTarget.elements & {
+        email: { value: string };
+        password: { value: string };
+      };
 
-    if (!validateEmail(email.value)) {
-      toast.error('Некорректно указана почта');
+      if (!validateEmail(email.value)) {
+        toast.error('Некорректно указана почта');
+        setLoadingStatusBtn(false);
+        return;
+      }
+
+      await dispatch(loginUserTC({ email: email.value, password: password.value }));
       setLoadingStatusBtn(false);
-      return;
-    }
-
-    await dispatch(loginUserTC({ email: email.value, password: password.value }));
-    setLoadingStatusBtn(false);
-  }, []);
+    },
+    [dispatch],
+  );
 
   if (isLoggedIn) {
     return <Navigate to={AppRoutes.Root} />;

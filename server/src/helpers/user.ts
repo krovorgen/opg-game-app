@@ -6,7 +6,6 @@ export type UserType = {
   id: number;
   email: string;
   nickname: string;
-  passwordSalt: string;
   passwordHash: string;
   role: UserRoleType;
   lvlPoint: number;
@@ -17,23 +16,17 @@ export type UserType = {
 };
 
 export class User {
-  private generateSalt = async () => {
-    return await bcrypt.genSalt(2);
-  };
-
-  generateHash = async (password: string, passwordSalt: string) => {
-    return await bcrypt.hash(password, passwordSalt);
+  generateHash = async (password: string) => {
+    return await bcrypt.hash(password, 10);
   };
 
   async createUser(email: string, password: string, nickname: string): Promise<UserType> {
-    const passwordSalt = await this.generateSalt();
-    const passwordHash = await this.generateHash(password, passwordSalt);
+    const passwordHash = await this.generateHash(password);
 
     return {
       id: +new Date(),
       email,
       nickname,
-      passwordSalt,
       passwordHash,
       role: 'USER',
       lvlPoint: 0,

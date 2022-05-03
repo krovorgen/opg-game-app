@@ -3,20 +3,19 @@ import { body } from 'express-validator';
 
 import { inputValidatorMiddleware } from '../middleware/input-validator-middleware';
 import { usersService } from '../services/users-service';
-import { uniqueEmailMiddleware } from '../middleware/unique-email-middleware';
-import { uniqueNicknameMiddleware } from '../middleware/unique-nickname-middleware';
 import { jwtService } from '../application/jwtService';
 import { userExistsMiddleware } from '../middleware/user-exists-middleware';
 import { validateToken } from '../middleware/validate-token-middleware';
 import { usersRepository } from '../repositories/users-repository';
+import { uniqueValueMiddleware } from '../middleware/unique-value-middleware';
 
 export const authRouter = Router({});
 
 authRouter
   .post(
     '/registration',
-    body('email').isEmail().notEmpty().custom(uniqueEmailMiddleware),
-    body('nickname').notEmpty().custom(uniqueNicknameMiddleware),
+    body('email').isEmail().notEmpty().custom(uniqueValueMiddleware.email),
+    body('nickname').notEmpty().custom(uniqueValueMiddleware.nickname),
     body('password')
       .isLength({ min: 1, max: 28 })
       .withMessage('password can contain from 1 to 28 characters')

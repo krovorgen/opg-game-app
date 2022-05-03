@@ -1,3 +1,5 @@
+import bcrypt from 'bcryptjs';
+
 import { usersRepository } from '../repositories/users-repository';
 import { User, UserType } from '../helpers/user';
 
@@ -14,8 +16,8 @@ export const usersService = {
   },
   async checkCredentials(email: string, password: string): Promise<UserType | null> {
     const user = (await usersRepository.getByEmail(email)) as UserType;
-    const passwordHash = await new User().generateHash(password, user.passwordSalt);
-    return passwordHash === user.passwordHash ? user : null;
+    const correctPassword = await bcrypt.compare(password, user.passwordHash);
+    return correctPassword ? user : null;
   },
   async deleteById(id: number): Promise<void> {
     return await usersRepository.deleteById(id);

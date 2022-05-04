@@ -7,7 +7,7 @@ import { useAppSelector } from '../../redux/hooks';
 import styles from './Root.module.scss';
 
 export const Root = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.user);
 
   if (!isLoggedIn) {
     return <Navigate to={AppRoutes.Login} />;

@@ -6,7 +6,6 @@ export type UserType = {
   id: number;
   email: string;
   nickname: string;
-  // passwordHash: string;
   role: UserRoleType;
   lvlPoint: number;
   money: number;

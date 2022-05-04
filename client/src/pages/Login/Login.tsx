@@ -16,9 +16,9 @@ import styles from './Login.module.scss';
 
 export const Login = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.user);
 
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
 
   const changeVisibilityPassword = useCallback(() => {

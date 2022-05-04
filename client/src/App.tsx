@@ -2,14 +2,15 @@ import { Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
-import { Root } from './pages/Root';
-import { Registration } from './pages/Registration';
-import { Login } from './pages/Login';
 import { AppRoutes } from './helpers/routes';
 import { AdminTools } from './components/AdminTools';
 import { useAppSelector } from './redux/hooks';
 import { initializedTC } from './redux/reducer/authReducer';
 import { GlobalLoader } from './components/GlobalLoader';
+import { PasswordRecovery } from './pages/PasswordRecovery';
+import { Root } from './pages/Root';
+import { Registration } from './pages/Registration';
+import { Login } from './pages/Login';
 
 export const App = () => {
   const isInitializedApp = useAppSelector((state) => state.app.isInitializedApp);
@@ -33,8 +34,9 @@ export const App = () => {
         <Route path={AppRoutes.Root} element={<Root />} />
         <Route path={AppRoutes.Login} element={<Login />} />
         <Route path={AppRoutes.Registration} element={<Registration />} />
+        <Route path={AppRoutes.PasswordRecovery} element={<PasswordRecovery />} />
       </Routes>
-      {userRole === 'ADMIN' ? <AdminTools /> : null}
+      {true || userRole === 'ADMIN' ? <AdminTools /> : null}
     </>
   );
 };

@@ -4,6 +4,7 @@ import { Typography } from '@alfalab/core-components/typography';
 import { Input } from '@alfalab/core-components/input';
 import { Button } from '@alfalab/core-components/button';
 import { PasswordInput } from '@alfalab/core-components/password-input';
+import { Link as LinkUI } from '@alfalab/core-components/link';
 import { Link, Navigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -67,6 +68,11 @@ export const Login = () => {
             passwordVisible={passwordVisible}
             onPasswordVisibleChange={changeVisibilityPassword}
           />
+          <Link to={AppRoutes.PasswordRecovery} className={styles.recovery}>
+            <LinkUI view="default" Component="span">
+              Восстановить пароль
+            </LinkUI>
+          </Link>
           <Button
             className={styles.submit}
             type="submit"

@@ -26,7 +26,7 @@ export const ViewRoutes = () => {
                 className={(props) =>
                   `${cn({ [styles.linkActive]: props.isActive })} ${styles.link}`
                 }>
-                {key as string} : {value as string}
+                {value as string}
               </NavLink>
             </li>
           ))}

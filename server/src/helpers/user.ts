@@ -1,4 +1,5 @@
-import bcrypt from 'bcryptjs';
+import { randomBytes, scrypt, timingSafeEqual } from 'crypto';
+import { promisify } from 'util';
 
 export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 
@@ -16,8 +17,16 @@ export type UserType = {
 };
 
 export class User {
-  generateHash = async (password: string) => {
-    return await bcrypt.hash(password, 10);
+  generateHash = async (password: string): Promise<string> => {
+    const salt = randomBytes(8).toString('hex');
+    const buf = (await promisify(scrypt)(password, salt, 64)) as Buffer;
+    return `${salt}:${buf.toString('hex')}`;
+  };
+
+  correctPassword = async (password: string, hash: string): Promise<boolean> => {
+    const [salt, hashedPassword] = hash.split(':');
+    const buf = (await promisify(scrypt)(password, salt, 64)) as Buffer;
+    return timingSafeEqual(Buffer.from(hashedPassword, 'hex'), buf);
   };
 
   async createUser(email: string, password: string, nickname: string): Promise<UserType> {

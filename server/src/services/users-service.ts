@@ -1,5 +1,6 @@
 import { usersRepository } from '../repositories/users-repository';
 import { User, UserType } from '../helpers/user';
+import { cryptography } from '../application/cryptographyService';
 
 export const usersService = {
   async get(): Promise<UserType[]> {
@@ -14,7 +15,7 @@ export const usersService = {
   },
   async checkCredentials(email: string, password: string): Promise<UserType | null> {
     const user = (await usersRepository.getByEmail(email)) as UserType;
-    const correctPassword = await new User().correctPassword(password, user.passwordHash);
+    const correctPassword = await cryptography.correctPassword(password, user.passwordHash);
     return correctPassword ? user : null;
   },
   async deleteById(id: number): Promise<void> {

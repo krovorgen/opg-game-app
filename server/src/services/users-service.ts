@@ -9,6 +9,12 @@ export const usersService = {
   async getById(id: number): Promise<UserType | null> {
     return await usersRepository.getById(id);
   },
+  async getByEmail(email: string): Promise<UserType | null> {
+    return await usersRepository.getByEmail(email);
+  },
+  async getByNickname(nickname: string): Promise<UserType | null> {
+    return await usersRepository.getByNickname(nickname);
+  },
   async create(email: string, password: string, nickname: string): Promise<void> {
     let createdUser = await new User().createUser(email, password, nickname);
     await usersRepository.create(createdUser);

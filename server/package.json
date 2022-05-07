@@ -11,7 +11,8 @@
     "dev:watch": "./node_modules/.bin/concurrently \"pnpm run watch\" \"pnpm run dev\"",
     "build": "tsc --outDir ./dist",
     "start": "node dist/index.js",
-    "test": "ts-mocha -w src/test/*.ts"
+    "test:watch": "ts-mocha -w src/test/*.ts --timeout 10000",
+    "test": "ts-mocha src/test/*.ts --timeout 10000"
   },
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.8",

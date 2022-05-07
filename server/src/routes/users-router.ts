@@ -1,8 +1,8 @@
 import { Request, Response, Router } from 'express';
+import { param } from 'express-validator';
 
 import { userExistsMiddleware } from '../middleware/user-exists-middleware';
 import { usersService } from '../services/users-service';
-import { param } from 'express-validator';
 import { inputValidatorMiddleware } from '../middleware/input-validator-middleware';
 import { validateToken } from '../middleware/validate-token-middleware';
 

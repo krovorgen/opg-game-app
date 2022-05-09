@@ -19,9 +19,9 @@ export const apiAuth = {
     return instanceAuth.post<UserType>('auth/me', {});
   },
   login(email: string, password: string) {
-    return instance.post<{ token: string }>('auth/login', { email, password });
+    return instanceAuth.post<{ token: string }>('auth/login', { email, password });
   },
   registration(email: string, password: string, nickname: string) {
-    return instance.post('auth/registration', { email, password, nickname });
+    return instanceAuth.post('auth/registration', { email, password, nickname });
   },
 };

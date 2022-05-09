@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_API_URI || 'http://localhost:4000/api/';
+const AUTH_URL = process.env.REACT_APP_AUTH_URI || 'http://localhost:4100/api/';
 
 export const instance = axios.create({
   baseURL: BASE_URL,
@@ -12,7 +13,7 @@ function getToken() {
 }
 
 export const instanceAuth = axios.create({
-  baseURL: BASE_URL,
+  baseURL: AUTH_URL,
 });
 
 instanceAuth.interceptors.request.use((config) => {

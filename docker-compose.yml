@@ -4,26 +4,28 @@ version: '3.1'
 services:
   mongodb:
     image: mongo
+    container_name: mongodb
     volumes:
       - ./mongodb:/data/db:cached
     ports:
       - 27017:27017
-  client:
-    build: ./client
-    restart: always
-    container_name: app-client
-    depends_on:
-      - server
-    environment:
-      - REACT_APP_API_URI=http://localhost:4000/api/
-    ports:
-      - '3000:3000'
-    volumes:
-      - ./client:/app:cached
+#  client:
+#    build: ./client
+#    restart: always
+#    container_name: app-client
+#    depends_on:
+#      - server
+#    environment:
+#      - REACT_APP_API_URI=http://localhost:4000/api/
+#      - REACT_APP_AUTH_URI=http://localhost:4100/api/
+#    ports:
+#      - '3000:3000'
+#    volumes:
+#      - ./client:/app:cached
   server:
     build: ./server
     restart: always
-    container_name: app-server
+    container_name: server
     ports:
       - '4000:4000'
     environment:
@@ -38,12 +40,12 @@ services:
   auth:
     build: ./auth
     restart: always
-    container_name: app-auth
+    container_name: auth
     ports:
       - '4100:4100'
     environment:
       MONGO_URL: mongodb
-      PORT: 4000
+      PORT: 4100
     links:
       - mongodb
     depends_on:

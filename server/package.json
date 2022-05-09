@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nodemon dist/index.js",
     "watch": "tsc -w",
-    "dev:watch": "./node_modules/.bin/concurrently \"pnpm run watch\" \"pnpm run dev\"",
+    "dev:watch": "./node_modules/.bin/concurrently \"yarn run watch\" \"yarn run dev\"",
     "build": "tsc --outDir ./dist",
     "start": "node dist/index.js",
     "test:watch": "ts-mocha -w src/test/*.ts --timeout 10000",

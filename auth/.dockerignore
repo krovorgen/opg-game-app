@@ -1,0 +1,4 @@
+.prettierrc
+.idea
+dist
+node_modules

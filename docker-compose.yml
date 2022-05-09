@@ -52,3 +52,18 @@ services:
       - mongodb
     volumes:
       - ./auth:/app:cached
+  email:
+    build: ./email
+    restart: always
+    container_name: email
+    ports:
+      - '4200:4200'
+    environment:
+      MONGO_URL: mongodb
+      PORT: 4200
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    volumes:
+      - ./email:/app:cached

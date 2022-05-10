@@ -7,7 +7,6 @@
   },
   "dependencies": {
     "@fastify/mongodb": "^5.0.0",
-    "ajv-i18n": "^4.2.0",
     "concurrently": "^7.1.0",
     "dotenv": "^16.0.0",
     "fastify": "^3.29.0",

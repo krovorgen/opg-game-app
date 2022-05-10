@@ -5,7 +5,11 @@ export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 export type UserType = {
   id: number;
   email: string;
+  emailConfig: {
+    recoveryCode: string;
+  };
   nickname: string;
+  passwordHash: string;
   role: UserRoleType;
   lvlPoint: number;
   money: number;

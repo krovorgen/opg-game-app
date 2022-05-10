@@ -5,6 +5,9 @@ export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 export type UserType = {
   id: number;
   email: string;
+  emailConfig: {
+    recoveryCode: string;
+  }
   nickname: string;
   passwordHash: string;
   role: UserRoleType;
@@ -18,10 +21,14 @@ export type UserType = {
 export class User {
   async createUser(email: string, password: string, nickname: string): Promise<UserType> {
     const passwordHash = await cryptography.generateHash(password);
+    const recoveryCode = await cryptography.generateRecoveryCode(email)
 
     return {
       id: +new Date(),
       email,
+      emailConfig: {
+        recoveryCode,
+      },
       nickname,
       passwordHash,
       role: 'USER',

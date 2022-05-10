@@ -1,25 +1,17 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { emailService } from '../services/email-service';
 
 export async function emailRouter(fastify: FastifyInstance, options: Record<any, any>) {
-  const users = fastify.mongo.db!.collection('users');
-
   const emailSendJsonSchema = {
     type: 'object',
-    required: ['email', 'message', 'subject'],
-    properties: {
-      email: { type: 'string' },
-      message: { type: 'string' },
-      subject: { type: 'string', maxLength: 32 },
-    },
+    required: ['email'],
+    properties: { email: { type: 'string' } },
   };
 
   fastify.post(
-    '/api/email/send',
+    '/api/email/recovery-password',
     { schema: { body: emailSendJsonSchema } },
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      const usersFounded = await users.find({}, { projection: { _id: 0 } }).toArray();
-      return { users: usersFounded };
-    }
+    emailService.recoveryPassword
   );
 
   fastify.get('/api/hello', async (request: FastifyRequest, reply: FastifyReply) => {

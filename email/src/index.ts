@@ -1,11 +1,18 @@
-import 'dotenv/config'
+import 'dotenv/config';
 import fastify from 'fastify';
 import { emailRouter } from './routes/email-router';
 import { dbConnector } from './repositories/dbConnector';
-import {settings} from "./helpers/settings";
+import { settings } from './helpers/settings';
+import { localize, SchemaValidationError } from './helpers/localizeError';
+import { FastifySchemaValidationError } from 'fastify/types/schema';
 
 const app = fastify({
   logger: true,
+  schemaErrorFormatter: (errors: FastifySchemaValidationError[], dataVar) => {
+    localize(errors as SchemaValidationError[]);
+    const myErrorMessage = errors.map((error) => error.message!.trim()).join(', ');
+    return new Error(myErrorMessage);
+  },
 });
 
 app.register(dbConnector);

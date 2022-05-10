@@ -1,12 +1,13 @@
 {
   "scripts": {
-    "dev": "nodemon --inspect dist/index.js",
+    "dev": "nodemon dist/index.js",
     "watch": "tsc -w",
     "dev:watch": "./node_modules/.bin/concurrently \"yarn run watch\" \"yarn run dev\"",
     "autocannon": "autocannon -c 100 -d 10 -p 10 -l http://localhost:4500/api/users\n"
   },
   "dependencies": {
     "@fastify/mongodb": "^5.0.0",
+    "ajv-i18n": "^4.2.0",
     "concurrently": "^7.1.0",
     "dotenv": "^16.0.0",
     "fastify": "^3.29.0",

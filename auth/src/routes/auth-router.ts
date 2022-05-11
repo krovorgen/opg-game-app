@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { body } from 'express-validator';
+import { request } from 'undici';
 
 import { inputValidatorMiddleware } from '../middleware/input-validator-middleware';
 import { authService } from '../services/auth-service';
@@ -8,6 +9,7 @@ import { userExistsMiddleware } from '../middleware/user-exists-middleware';
 import { validateToken } from '../middleware/validate-token-middleware';
 import { authRepository } from '../repositories/auth-repository';
 import { uniqueValueMiddleware } from '../middleware/unique-value-middleware';
+import { settings } from '../helpers/settings';
 
 export const authRouter = Router({});
 
@@ -46,6 +48,21 @@ authRouter
           errors: [{ message: 'Неверная почта или пароль', field: 'email or password' }],
         });
       }
+    }
+  )
+  .post(
+    '/password-recovery',
+    body('email').toLowerCase().notEmpty().custom(userExistsMiddleware.byEmail),
+    inputValidatorMiddleware,
+    async (req: Request, res: Response) => {
+      const { statusCode } = await request(`${settings.EMAIL_URL}email/password-recovery`, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+        },
+        body: JSON.stringify({ email: req.body.email }),
+      });
+      res.sendStatus(statusCode);
     }
   )
   .post('/me', validateToken, async (req: Request, res: Response) => {

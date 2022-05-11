@@ -9,7 +9,7 @@ export async function emailRouter(fastify: FastifyInstance, options: Record<any,
   };
 
   fastify.post(
-    '/api/email/recovery-password',
+    '/api/email/password-recovery',
     { schema: { body: emailSendJsonSchema } },
     emailService.recoveryPassword
   );

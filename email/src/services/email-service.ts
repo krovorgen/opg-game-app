@@ -24,13 +24,17 @@ export const emailService = {
 
     const urlRecovery = `${settings.FRONT_URL}${recoveryCode}`;
 
-    await transporter.sendMail({
-      from: '"Восстановление пароля 👻" <lingma@internet.ru>',
-      to: req.body.email,
-      subject: 'Восстановление пароля',
-      html: resetPasswordHtml(urlRecovery),
-    });
-
-    return { email: req.body.email };
+    try {
+      await transporter.sendMail({
+        from: '"Восстановление пароля 👻" <lingma@internet.ru>',
+        to: req.body.email,
+        subject: 'Восстановление пароля',
+        html: resetPasswordHtml(urlRecovery),
+      });
+      reply.code(200).send('OK')
+      //  return  reply.status(200);
+    } catch (e) {
+      return new Error('message not sent')
+    }
   },
 };

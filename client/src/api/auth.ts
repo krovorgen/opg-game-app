@@ -1,4 +1,4 @@
-import { instance, instanceAuth } from './config';
+import { instanceAuth } from './config';
 
 export type UserRoleType = 'ADMIN' | 'USER' | 'MODERATOR';
 
@@ -27,5 +27,8 @@ export const apiAuth = {
   },
   registration(email: string, password: string, nickname: string) {
     return instanceAuth.post('auth/registration', { email, password, nickname });
+  },
+  passwordRecovery(email: string) {
+    return instanceAuth.post('auth/password-recovery', { email });
   },
 };

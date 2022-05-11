@@ -1,6 +1,5 @@
 import React, { ChangeEvent, SyntheticEvent, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Input } from '@alfalab/core-components/input';
 import { Button } from '@alfalab/core-components/button';
@@ -10,12 +9,12 @@ import { Link as LinkUI } from '@alfalab/core-components/link/Component';
 import { AppRoutes } from '../../helpers/routes';
 import { validateEmail } from '../../helpers/validateEmail';
 import { useAppSelector } from '../../redux/hooks';
+import { catchHandler } from '../../helpers/catchHandler';
+import { apiAuth } from '../../api/auth';
 
 import styles from './PasswordRecovery.module.scss';
 
 export const PasswordRecovery = () => {
-  const dispatch = useDispatch();
-
   const isLoggedIn = useAppSelector((state) => state.auth.user);
 
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
@@ -36,12 +35,17 @@ export const PasswordRecovery = () => {
         setLoadingStatusBtn(false);
         return;
       }
+      try {
+        await apiAuth.passwordRecovery(email);
+        setStep(2);
+      } catch ({ response }) {
+        catchHandler(response);
+        setStep(3);
+      }
 
-      // await dispatch(loginUserTC({ email }));
       setLoadingStatusBtn(false);
-      setStep(3);
     },
-    [dispatch, email],
+    [email],
   );
 
   if (isLoggedIn) {

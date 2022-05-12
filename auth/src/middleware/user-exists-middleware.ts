@@ -7,4 +7,10 @@ export const userExistsMiddleware = {
       throw 'User not found';
     }
   },
+  async byRecoveryCode(recoveryCode: string) {
+    const isFounded = await authRepository.getByRecoveryCode(recoveryCode);
+    if (!isFounded) {
+      throw 'Ссылка на восстановление пароля устарела!';
+    }
+  },
 };

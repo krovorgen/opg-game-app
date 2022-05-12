@@ -6,9 +6,9 @@ EXPOSE 4000
 
 COPY package*.json ./
 COPY yarn.lock ./
+
 RUN yarn install
+
 COPY . .
 
-RUN yarn build
-
-CMD ["yarn", "start"]
+CMD ["yarn", "build:start"]

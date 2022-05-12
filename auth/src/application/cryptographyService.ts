@@ -2,9 +2,9 @@ import { randomBytes, scrypt, timingSafeEqual } from 'crypto';
 import { promisify } from 'util';
 
 export const cryptography = {
-  async generateRecoveryCode(email: string): Promise<string> {
+  async generateRecoveryCode(password: string): Promise<string> {
     const salt = randomBytes(16).toString('hex');
-    const buf = (await promisify(scrypt)(email, salt, 32)) as Buffer;
+    const buf = (await promisify(scrypt)(password, salt, 32)) as Buffer;
     return buf.toString('hex');
   },
   async generateHash(password: string): Promise<string> {

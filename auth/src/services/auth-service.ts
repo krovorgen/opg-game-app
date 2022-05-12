@@ -18,4 +18,8 @@ export const authService = {
     const correctPassword = await cryptography.correctPassword(password, user.passwordHash);
     return correctPassword ? user : null;
   },
+  async setNewPassword(newPassword: string, recoveryCode: string): Promise<void> {
+    const { newPasswordHash, newRecoveryCode } = await new User().generateNewPassword(newPassword);
+    await authRepository.setNewPassword(newPasswordHash, newRecoveryCode, recoveryCode);
+  },
 };

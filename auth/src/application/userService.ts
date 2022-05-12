@@ -7,7 +7,7 @@ export type UserType = {
   email: string;
   emailConfig: {
     recoveryCode: string;
-  }
+  };
   nickname: string;
   passwordHash: string;
   role: UserRoleType;
@@ -19,9 +19,18 @@ export type UserType = {
 };
 
 export class User {
+  async generateNewPassword(newPassword: string): Promise<{ newPasswordHash: string; newRecoveryCode: string }> {
+    const newPasswordHash = await cryptography.generateHash(newPassword);
+    const newRecoveryCode = await cryptography.generateRecoveryCode(newPassword);
+    return {
+      newPasswordHash,
+      newRecoveryCode,
+    };
+  }
+
   async createUser(email: string, password: string, nickname: string): Promise<UserType> {
     const passwordHash = await cryptography.generateHash(password);
-    const recoveryCode = await cryptography.generateRecoveryCode(email)
+    const recoveryCode = await cryptography.generateRecoveryCode(password);
 
     return {
       id: +new Date(),

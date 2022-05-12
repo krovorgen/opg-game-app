@@ -52,7 +52,10 @@ authRouter
   )
   .post(
     '/password-recovery',
-    body('email').toLowerCase().notEmpty().custom(userExistsMiddleware.byEmail),
+    body('password')
+      .isLength({ min: 1, max: 28 })
+      .withMessage('password can contain from 1 to 28 characters')
+      .notEmpty(),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
       const { statusCode } = await request(`${settings.EMAIL_URL}email/password-recovery`, {
@@ -63,6 +66,19 @@ authRouter
         body: JSON.stringify({ email: req.body.email }),
       });
       res.sendStatus(statusCode);
+    }
+  )
+  .post(
+    '/set-new-password',
+    body('newPassword')
+      .isLength({ min: 1, max: 28 })
+      .withMessage('password can contain from 1 to 28 characters')
+      .notEmpty(),
+    body('recoveryCode').toLowerCase().notEmpty().custom(userExistsMiddleware.byRecoveryCode),
+    inputValidatorMiddleware,
+    async (req: Request, res: Response) => {
+      await authService.setNewPassword(req.body.newPassword, req.body.recoveryCode);
+      res.sendStatus(204);
     }
   )
   .post('/me', validateToken, async (req: Request, res: Response) => {

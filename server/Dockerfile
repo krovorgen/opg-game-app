@@ -9,4 +9,6 @@ COPY yarn.lock ./
 RUN yarn install
 COPY . .
 
-CMD ["yarn", "dev:watch"]
+RUN yarn build
+
+CMD ["yarn", "start"]

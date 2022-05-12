@@ -2,6 +2,8 @@
   "scripts": {
     "dev": "nodemon dist/index.js",
     "watch": "tsc -w",
+    "build": "tsc --outDir ./dist",
+    "start": "node dist/index.js",
     "dev:watch": "./node_modules/.bin/concurrently \"yarn run watch\" \"yarn run dev\"",
     "autocannon": "autocannon -c 100 -d 10 -p 10 -l http://localhost:4500/api/users\n"
   },

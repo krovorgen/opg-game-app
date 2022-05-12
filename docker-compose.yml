@@ -37,21 +37,22 @@ services:
       - mongodb
     volumes:
       - ./server:/app:cached
-#  auth:
-#    build: ./auth
-#    restart: always
-#    container_name: auth
-#    ports:
-#      - '4100:4100'
-#    environment:
-#      MONGO_URL: mongodb
-#      PORT: 4100
-#    links:
-#      - mongodb
-#    depends_on:
-#      - mongodb
-#    volumes:
-#      - ./auth:/app:cached
+  auth:
+    build: ./auth
+    restart: always
+    container_name: auth
+    ports:
+      - '4100:4100'
+    environment:
+      MONGO_URL: mongodb
+      PORT: 4100
+      EMAIL_URL: http://email:4200/api/
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    volumes:
+      - ./auth:/app:cached
   email:
     build: ./email
     restart: always

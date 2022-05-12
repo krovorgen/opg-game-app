@@ -52,10 +52,7 @@ authRouter
   )
   .post(
     '/password-recovery',
-    body('password')
-      .isLength({ min: 1, max: 28 })
-      .withMessage('password can contain from 1 to 28 characters')
-      .notEmpty(),
+    body('email').toLowerCase().notEmpty().custom(userExistsMiddleware.byEmail),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
       const { statusCode } = await request(`${settings.EMAIL_URL}email/password-recovery`, {

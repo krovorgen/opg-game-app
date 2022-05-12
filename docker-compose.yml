@@ -62,6 +62,7 @@ services:
     environment:
       MONGO_URL: mongodb
       PORT: 4200
+      FRONT_URL: http://localhost:3000/set-new-password/
     links:
       - mongodb
     depends_on:

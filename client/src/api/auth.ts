@@ -31,4 +31,7 @@ export const apiAuth = {
   passwordRecovery(email: string) {
     return instanceAuth.post('auth/password-recovery', { email });
   },
+  setNewPassword(recoveryCode: string, newPassword: string) {
+    return instanceAuth.post('auth/set-new-password', { recoveryCode, newPassword });
+  },
 };

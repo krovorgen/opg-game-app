@@ -3,5 +3,5 @@ export enum AppRoutes {
   Login = '/login',
   Registration = '/registration',
   PasswordRecovery = '/password-recovery',
-  SetNewPassword = '/set-new-password',
+  SetNewPassword = '/set-new-password/:recoveryCode',
 }

@@ -7,7 +7,7 @@ export type UserType = {
   email: string;
   emailConfig: {
     recoveryCode: string;
-  }
+  };
   nickname: string;
   passwordHash: string;
   role: UserRoleType;

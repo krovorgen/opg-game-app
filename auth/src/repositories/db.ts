@@ -1,18 +1,37 @@
-import { MongoClient } from 'mongodb';
 import { settings } from '../helpers/settings';
+import mongoose from 'mongoose';
+import { UserType } from '../application/userService';
 
 const host = settings.MONGO_URL;
 const mongoUri = `mongodb://${host}/test`;
 
-export const client = new MongoClient(mongoUri);
-
 export async function runDb() {
   try {
-    await client.connect();
-    await client.db('test').command({ ping: 1 });
+    await mongoose.connect(mongoUri);
     console.log('Connected successfully to mongo server');
   } catch {
+    await mongoose.disconnect();
     console.log("Can't connect to db");
-    await client.close();
   }
 }
+
+const userSchema = new mongoose.Schema<UserType>({
+  id: Number,
+  email: String,
+  emailConfig: {
+    recoveryCode: String,
+  },
+  nickname: String,
+  passwordHash: String,
+  role: {
+    type: String,
+    default: 'USER',
+  },
+  lvlPoint: Number,
+  money: Number,
+  popularPoint: Number,
+  updated: { type: Date, default: Date.now },
+  created: { type: Date, default: Date.now },
+});
+
+export const UsersModel = mongoose.model('Users', userSchema);

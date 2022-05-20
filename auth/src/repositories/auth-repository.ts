@@ -1,31 +1,36 @@
-import { client } from './db';
+import { UsersModel } from './db';
 import { UserType } from '../application/userService';
 
-export let users = client.db('test').collection<UserType>('users');
-
-export const authRepository = {
+class AuthRepository {
   async getById(id: number): Promise<UserType | null> {
-    return await users.findOne({ id }, { projection: { _id: 0, passwordHash: 0, 'emailConfig.recoveryCode': 0 } });
-  },
+    return UsersModel.findOne({ id }, { projection: { _id: 0, passwordHash: 0, 'emailConfig.recoveryCode': 0 } });
+  }
+
   async getByEmail(email: string): Promise<UserType | null> {
-    return await users.findOne({ email }, { projection: { _id: 0 } });
-  },
+    return UsersModel.findOne({ email }, { projection: { _id: 0 } });
+  }
+
   async getByRecoveryCode(recoveryCode: string): Promise<UserType | null> {
-    return await users.findOne({ 'emailConfig.recoveryCode': recoveryCode }, { projection: { _id: 0 } });
-  },
+    return UsersModel.findOne({ 'emailConfig.recoveryCode': recoveryCode }, { projection: { _id: 0 } });
+  }
+
   async getByNickname(nickname: string): Promise<UserType | null> {
-    return await users.findOne({ nickname }, { projection: { _id: 0 } });
-  },
+    return UsersModel.findOne({ nickname }, { projection: { _id: 0 } });
+  }
+
   async create(newUser: UserType): Promise<void> {
-    await users.insertOne(newUser);
-  },
+    await UsersModel.create(newUser);
+  }
+
   async setNewPassword(newPasswordHash: string, newRecoveryCode: string, recoveryCode: string): Promise<void> {
-    await users.updateOne(
+    await UsersModel.updateOne(
       { 'emailConfig.recoveryCode': recoveryCode },
       {
         $set: { 'emailConfig.recoveryCode': newRecoveryCode, passwordHash: newPasswordHash },
-        $currentDate: { lastModified: true },
+        $currentDate: { updated: true },
       }
     );
-  },
-};
+  }
+}
+
+export const authRepository = new AuthRepository();

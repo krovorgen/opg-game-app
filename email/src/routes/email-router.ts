@@ -13,8 +13,4 @@ export async function emailRouter(fastify: FastifyInstance, options: Record<any,
     { schema: { body: emailSendJsonSchema } },
     emailService.recoveryPassword
   );
-
-  fastify.get('/api/hello', async (request: FastifyRequest, reply: FastifyReply) => {
-    return { hello: 'world' };
-  });
 }

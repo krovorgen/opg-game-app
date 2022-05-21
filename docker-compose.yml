@@ -31,6 +31,7 @@ services:
     environment:
       MONGO_URL: mongodb
       PORT: 4000
+      JWT_SECRET: eebf3f044373c64357933a89c0a2ec295584ebb4d4478c2a7c8d79bdb88628a1e004bb3b2ef76d45e10d2d2f1bbe4bd0440c131cd725ad18ff39186836dd8ccb
     links:
       - mongodb
     depends_on:

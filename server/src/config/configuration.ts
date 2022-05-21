@@ -1,5 +1,5 @@
 export default () => ({
-  PORT: parseInt(process.env.PORT, 10) || 3000,
+  PORT: parseInt(process.env.PORT, 10) || 4000,
   database: {
     MONGO_URL: process.env.MONGO_URL || 'localhost:27017',
   },

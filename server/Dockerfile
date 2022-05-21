@@ -1,4 +1,4 @@
-FROM node:16-alpine as builder
+FROM node:16.15.0-alpine as builder
 
 ENV NODE_ENV build
 
@@ -6,15 +6,16 @@ USER node
 WORKDIR /home/node
 
 COPY package*.json ./
+COPY yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY --chown=node:node . .
-RUN npm run build \
-    && npm prune --production
+RUN yarn build \
+    && yarn install --production --ignore-scripts --prefer-offline
 
 # ---
 
-FROM node:16-alpine
+FROM node:16.15.0-alpine
 
 ENV NODE_ENV production
 
@@ -25,4 +26,4 @@ COPY --from=builder --chown=node:node /home/node/package*.json ./
 COPY --from=builder --chown=node:node /home/node/node_modules/ ./node_modules/
 COPY --from=builder --chown=node:node /home/node/dist/ ./dist/
 
-CMD ["node", "dist/server.js"]
+CMD ["node", "dist/main.js"]

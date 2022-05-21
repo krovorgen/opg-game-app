@@ -9,7 +9,7 @@
     "dev": "nodemon dist/index.js",
     "watch": "tsc -w",
     "dev:watch": "./node_modules/.bin/concurrently \"yarn run watch\" \"yarn run dev\"",
-    "build:start": "npx tsc --outDir ./dist && node dist/index.js",
+    "build:start": "./node_modules/.bin/tsc --outDir ./dist && node dist/index.js",
     "test:watch": "ts-mocha -w src/test/*.ts --timeout 10000",
     "test": "ts-mocha src/test/*.ts --timeout 10000",
     "autocannon": "autocannon -c 100 -d 10 -p 10 -l http://localhost:4000/api/users\n"

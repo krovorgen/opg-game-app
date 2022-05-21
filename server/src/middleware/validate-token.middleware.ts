@@ -20,8 +20,6 @@ export class ValidateTokenMiddleware implements NestMiddleware {
       throw new HttpException(`Unauthorized`, HttpStatus.UNAUTHORIZED);
     verify(token, configuration().crypto.JWT_SECRET, (err, decoded) => {
       if (err) throw new HttpException(`Forbidden`, HttpStatus.FORBIDDEN);
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
       req.tokenData = decoded as DecodedJWTType;
       next();
     });

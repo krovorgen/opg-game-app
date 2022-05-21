@@ -1,4 +1,9 @@
+.dockerignore
+node_modules
+npm-debug.log
+Dockerfile
+.git
+.gitignore
 .prettierrc
 .idea
 dist
-node_modules

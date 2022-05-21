@@ -8,7 +8,7 @@ COPY package*.json ./
 COPY yarn.lock ./
 
 RUN yarn install
-RUN yarn install -D typescript
+RUN yarn add -D typescript
 
 COPY . .
 

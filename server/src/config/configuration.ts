@@ -1,0 +1,9 @@
+export default () => ({
+  PORT: parseInt(process.env.PORT, 10) || 3000,
+  database: {
+    MONGO_URL: process.env.MONGO_URL || 'localhost:27017',
+  },
+  crypto: {
+    JWT_SECRET: process.env.JWT_SECRET || '123',
+  },
+});

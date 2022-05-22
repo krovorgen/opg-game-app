@@ -15,9 +15,8 @@ services:
     container_name: app-client
     depends_on:
       - server
-    environment:
-      - REACT_APP_API_URI=http://localhost:4000/api/
-      - REACT_APP_AUTH_URI=http://localhost:4100/api/
+    env_file:
+      - .env.development
     ports:
       - '80:80'
     volumes:
@@ -28,10 +27,8 @@ services:
     container_name: server
     ports:
       - '4000:4000'
-    environment:
-      MONGO_URL: mongodb
-      PORT: 4000
-      JWT_SECRET: eebf3f044373c64357933a89c0a2ec295584ebb4d4478c2a7c8d79bdb88628a1e004bb3b2ef76d45e10d2d2f1bbe4bd0440c131cd725ad18ff39186836dd8ccb
+    env_file:
+      - .env.development
     links:
       - mongodb
     depends_on:
@@ -44,10 +41,8 @@ services:
     container_name: auth
     ports:
       - '4100:4100'
-    environment:
-      MONGO_URL: mongodb
-      PORT: 4100
-      EMAIL_URL: http://email:4200/api/
+    env_file:
+      - .env.development
     links:
       - mongodb
     depends_on:
@@ -60,10 +55,8 @@ services:
     container_name: email
     ports:
       - '4200:4200'
-    environment:
-      MONGO_URL: mongodb
-      PORT: 4200
-      FRONT_URL: http://localhost:80/set-new-password/
+    env_file:
+      - .env.development
     links:
       - mongodb
     depends_on:

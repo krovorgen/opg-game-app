@@ -9,6 +9,11 @@ export enum UserRoleType {
   moderator = 'MODERATOR',
 }
 
+export enum SexType {
+  woman = 'woman',
+  male = 'male',
+}
+
 @Schema({ _id: false })
 class EmailConfig {
   @Prop()
@@ -49,6 +54,9 @@ export class User {
 
   @Prop({ default: new Date() })
   created: Date;
+
+  @Prop()
+  sex: SexType;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

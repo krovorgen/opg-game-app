@@ -1,6 +1,6 @@
 import { IsDate, IsEnum, IsNumber, IsString } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
-import { UserRoleType } from '../../schemas/users.schema';
+import { SexType, UserRoleType } from '../../schemas/users.schema';
 
 class UpdateUser {
   @IsString()
@@ -23,6 +23,9 @@ class UpdateUser {
 
   @IsDate()
   readonly created: Date;
+
+  @IsEnum(SexType)
+  readonly sex: SexType;
 }
 
 export class UpdateUserDto extends PartialType(UpdateUser) {}

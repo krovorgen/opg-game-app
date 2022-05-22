@@ -55,12 +55,17 @@ authRouter
     body('email').toLowerCase().notEmpty().custom(userExistsMiddleware.byEmail),
     inputValidatorMiddleware,
     async (req: Request, res: Response) => {
+      const user = await authRepository.getByEmail(req.body.email);
+
       const { statusCode } = await request(`${settings.EMAIL_URL}email/password-recovery`, {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
         },
-        body: JSON.stringify({ email: req.body.email }),
+        body: JSON.stringify({
+          email: req.body.email,
+          recoveryCode: user!.emailConfig.recoveryCode,
+        }),
       });
       res.sendStatus(statusCode);
     }

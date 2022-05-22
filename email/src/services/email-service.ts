@@ -2,15 +2,14 @@ import { FastifyReply, FastifyRequest } from 'fastify';
 import nodemailer from 'nodemailer';
 import { settings } from '../helpers/settings';
 import { resetPasswordHtml } from '../templates/reset-password/reset-password-html';
-import { usersRepository } from '../repositories/users-repository';
 
 export const emailService = {
-  async recoveryPassword(req: FastifyRequest<{ Body: { email: string } }>, reply: FastifyReply): Promise<any> {
+  async recoveryPassword(
+    req: FastifyRequest<{ Body: { email: string; recoveryCode: string } }>,
+    reply: FastifyReply
+  ): Promise<any> {
     const email = req.body.email;
-    const user = await usersRepository.getByEmail(email);
-    if (!user) return new Error('Пользователь не найден');
-
-    const recoveryCode = user.emailConfig.recoveryCode;
+    const recoveryCode = req.body.recoveryCode;
 
     let transporter = nodemailer.createTransport({
       host: 'smtp.mail.ru',
@@ -27,14 +26,13 @@ export const emailService = {
     try {
       await transporter.sendMail({
         from: '"Восстановление пароля 👻" <lingma@internet.ru>',
-        to: req.body.email,
+        to: email,
         subject: 'Восстановление пароля',
         html: resetPasswordHtml(urlRecovery),
       });
-      reply.code(200).send('OK')
-      //  return  reply.status(200);
+      reply.code(200).send('OK');
     } catch (e) {
-      return new Error('message not sent')
+      return new Error('message not sent');
     }
   },
 };

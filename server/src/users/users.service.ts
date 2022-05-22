@@ -25,7 +25,9 @@ export class UsersService {
     const user = await this.userRepository
       .findOne({ id }, privateFields)
       .exec();
-    if (!user) throw new NotFoundException(`User with id ${id} not found`);
+    if (!user) {
+      throw new NotFoundException(`User with id ${id} not found`);
+    }
     return user;
   }
 

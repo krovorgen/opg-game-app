@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import configuration from './config/configuration';
 import { ValidationPipe } from '@nestjs/common';
 
-async function start() {
+(async function () {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
     new ValidationPipe({
@@ -16,5 +16,4 @@ async function start() {
     }),
   );
   await app.listen(configuration().PORT);
-}
-start();
+})();

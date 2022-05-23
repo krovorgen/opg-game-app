@@ -10,6 +10,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { CryptographyService } from '../cryptography/cryptography.service';
+import { LoginUserDto } from './dto/login-user.dto';
 
 export type PayloadToken = {
   id: number;
@@ -41,7 +42,7 @@ export class AuthService {
     return this.generateToken(user);
   }
 
-  async login(userDto: CreateUserDto) {
+  async login(userDto: LoginUserDto) {
     const user = await this.userService.getByEmail(userDto.email);
     if (!user) {
       throw new BadRequestException([`Почта ${userDto.email} не существует`]);
@@ -72,7 +73,7 @@ export class AuthService {
     };
   }
 
-  private async validateUser(userDto: CreateUserDto, user: User) {
+  private async validateUser(userDto: LoginUserDto, user: User) {
     return await this.cryptographyService.correctPassword(
       userDto.password,
       user.passwordHash,

@@ -1,8 +1,9 @@
-import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @ApiTags('Авторизация')
 @Controller('/api/auth')
@@ -15,7 +16,7 @@ export class AuthController {
   }
 
   @Post('/login')
-  async login(@Body() userDto: CreateUserDto) {
+  async login(@Body() userDto: LoginUserDto) {
     return this.authService.login(userDto);
   }
 

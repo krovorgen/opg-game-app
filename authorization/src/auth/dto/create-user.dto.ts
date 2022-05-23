@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 import { SexType } from '../../schemas/users.schema';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -9,7 +9,6 @@ export class CreateUserDto {
 
   @ApiProperty({ example: `Никнейм`, type: String })
   @IsString()
-  @IsOptional()
   readonly nickname: string;
 
   @ApiProperty({ example: `Пароль`, type: String })
@@ -18,6 +17,5 @@ export class CreateUserDto {
 
   @ApiProperty({ example: SexType.male, type: String })
   @IsEnum(SexType)
-  @IsOptional()
   readonly sex: SexType;
 }

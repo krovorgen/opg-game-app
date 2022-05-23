@@ -23,23 +23,26 @@ export const SetNewPassword = () => {
     setPasswordVisible((v) => !v);
   }, []);
 
-  const submitLogin = useCallback(async (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoadingStatusBtn(true);
+  const submitLogin = useCallback(
+    async (e: SyntheticEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoadingStatusBtn(true);
 
-    const { password } = e.currentTarget.elements as typeof e.currentTarget.elements & {
-      password: { value: string };
-    };
+      const { password } = e.currentTarget.elements as typeof e.currentTarget.elements & {
+        password: { value: string };
+      };
 
-    try {
-      await apiAuth.setNewPassword(recoveryCode as string, password.value);
-      setStep(2);
-    } catch ({ response }) {
-      catchHandler(response);
-    }
+      try {
+        await apiAuth.setNewPassword(recoveryCode as string, password.value);
+        setStep(2);
+      } catch ({ response }) {
+        catchHandler(response);
+      }
 
-    setLoadingStatusBtn(false);
-  }, []);
+      setLoadingStatusBtn(false);
+    },
+    [recoveryCode],
+  );
 
   if (isLoggedIn) {
     return <Navigate to={AppRoutes.Root} />;

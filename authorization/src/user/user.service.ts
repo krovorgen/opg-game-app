@@ -2,8 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User, UserDocument, UserRoleType } from '../schemas/users.schema';
 import { Model } from 'mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
 import { CryptographyService } from '../cryptography/cryptography.service';
+import { CreateUserDto } from '../auth/dto/create-user.dto';
+
+const privateFields = {
+  passwordHash: 0,
+  __v: 0,
+  emailConfig: 0,
+  _id: 0,
+};
 
 @Injectable()
 export class UserService {
@@ -12,15 +19,16 @@ export class UserService {
     private readonly cryptographyService: CryptographyService,
   ) {}
 
+  async getById(id: number) {
+    return this.userRepository.findOne({ id }, privateFields);
+  }
+
   async getByEmail(email: string) {
-    return this.userRepository.findOne({ email }, { projection: { _id: 0 } });
+    return this.userRepository.findOne({ email }, { _id: 0 });
   }
 
   async getByNickname(nickname: string) {
-    return this.userRepository.findOne(
-      { nickname },
-      { projection: { _id: 0 } },
-    );
+    return this.userRepository.findOne({ nickname }, { _id: 0 });
   }
 
   async createUser(createUserDto: CreateUserDto) {
@@ -42,6 +50,7 @@ export class UserService {
       updated: new Date(),
       created: new Date(),
     };
-    console.log(newUser);
+
+    return await new this.userRepository(newUser).save();
   }
 }

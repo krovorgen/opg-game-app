@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -17,10 +17,10 @@ import { CryptographyModule } from '../cryptography/cryptography.module';
         expiresIn: '365d',
       },
     }),
-    UserModule,
+    forwardRef(() => UserModule),
     CryptographyModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService],
+  providers: [AuthService, JwtModule],
 })
 export class AuthModule {}

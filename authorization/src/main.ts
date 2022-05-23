@@ -18,6 +18,8 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
     }),
   );
 
+  app.enableCors();
+
   const config = new DocumentBuilder()
     .setTitle('Авторизация')
     .setVersion('1.0.0')

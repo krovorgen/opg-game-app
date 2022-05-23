@@ -23,6 +23,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
   const config = new DocumentBuilder()
     .setTitle('Авторизация')
     .setVersion('1.0.0')
+    .addBearerAuth({ in: 'header', type: 'http' })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);

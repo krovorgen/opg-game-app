@@ -1,8 +1,7 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ValidateTokenMiddleware } from './middleware/validate-token.middleware';
 import configuration from './config/configuration';
 import { AppController } from './app.controller';
 
@@ -20,8 +19,4 @@ import { AppController } from './app.controller';
   controllers: [AppController],
   providers: [],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ValidateTokenMiddleware).forRoutes('api/users');
-  }
-}
+export class AppModule {}

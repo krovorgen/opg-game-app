@@ -36,7 +36,7 @@ services:
     volumes:
       - ./server:/app:cached
   auth:
-    build: ./authorization
+    build: auth
     restart: always
     container_name: auth
     ports:

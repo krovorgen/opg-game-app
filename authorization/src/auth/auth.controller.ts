@@ -22,6 +22,15 @@ export class AuthController {
     return this.authService.login(userDto);
   }
 
+  @ApiOperation({ summary: 'Новый пароль' })
+  @Post('/set-new-password')
+  async setNewPassword(
+    @Body() body: { recoveryCode: string; newPassword: string },
+  ) {
+    const { recoveryCode, newPassword } = body;
+    return this.authService.setNewPassword(newPassword, recoveryCode);
+  }
+
   @ApiOperation({ summary: 'Проверка авторизации' })
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

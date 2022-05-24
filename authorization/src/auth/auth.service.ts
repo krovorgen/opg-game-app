@@ -47,8 +47,8 @@ export class AuthService {
     if (!user) {
       throw new BadRequestException([`Почта ${userDto.email} не существует`]);
     }
+    const correctDto = await this.validateUser(userDto, user);
 
-    const correctDto = this.validateUser(userDto, user);
     if (!correctDto) {
       throw new UnauthorizedException(['Неверный логин или пароль']);
     }
@@ -66,14 +66,34 @@ export class AuthService {
     return user;
   }
 
-  private async generateToken(user: User) {
+  async setNewPassword(newPassword: string, recoveryCode: string) {
+    const user = this.userRepository.findOne({
+      'emailConfig.recoveryCode': recoveryCode,
+    });
+    if (!user) {
+      throw new BadRequestException([
+        `Ссылка на восстановление пароля устарела!`,
+      ]);
+    }
+
+    return user.update({
+      passwordHash: await this.cryptographyService.generateHash(newPassword),
+      'emailConfig.recoveryCode':
+        await this.cryptographyService.generateRecoveryCode(newPassword),
+    });
+  }
+
+  private generateToken(user: User): { token: string } {
     const payload = { id: user.id, email: user.email, role: user.role };
     return {
       token: `Bearer ${this.jwtService.sign(payload)}`,
     };
   }
 
-  private async validateUser(userDto: LoginUserDto, user: User) {
+  private async validateUser(
+    userDto: LoginUserDto,
+    user: User,
+  ): Promise<boolean> {
     return await this.cryptographyService.correctPassword(
       userDto.password,
       user.passwordHash,

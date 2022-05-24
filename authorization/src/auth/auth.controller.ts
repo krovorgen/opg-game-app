@@ -38,4 +38,10 @@ export class AuthController {
   async me(@Request() req) {
     return this.authService.me(req.user);
   }
+
+  @ApiOperation({ summary: 'Восстановление пароля' })
+  @Post('/password-recovery')
+  async passwordRecovery(@Body('email') email) {
+    return this.authService.passwordRecovery(email);
+  }
 }

@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -11,6 +12,8 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from '../user/user.service';
 import { CryptographyService } from '../cryptography/cryptography.service';
 import { LoginUserDto } from './dto/login-user.dto';
+import { request } from 'undici';
+import configuration from '../config/configuration';
 
 export type PayloadToken = {
   id: number;
@@ -81,6 +84,32 @@ export class AuthService {
       'emailConfig.recoveryCode':
         await this.cryptographyService.generateRecoveryCode(newPassword),
     });
+  }
+
+  async passwordRecovery(email) {
+    const user = await this.userService.getByEmail(email);
+    if (!user) {
+      throw new BadRequestException([`Почта ${email} не существует`]);
+    }
+
+    try {
+      const { statusCode } = await request(
+        `${configuration().EMAIL_URL}email/password-recovery`,
+        {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            recoveryCode: user.emailConfig.recoveryCode,
+          }),
+        },
+      );
+      return statusCode;
+    } catch (e) {
+      throw new InternalServerErrorException('Что-то пошло не так!');
+    }
   }
 
   private generateToken(user: User): { token: string } {

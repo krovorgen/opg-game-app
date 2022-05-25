@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { AppRoutes } from './helpers/routes';
 import { AdminTools } from './components/AdminTools';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { initializedTC } from './redux/reducer/authReducer';
+import { initializedApp } from './redux/reducer/authReducer';
 import { GlobalLoader } from './components/GlobalLoader';
 import { PasswordRecovery } from './pages/PasswordRecovery';
 import { Root } from './pages/Root';
@@ -19,7 +19,7 @@ export const App = () => {
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(initializedTC());
+    dispatch(initializedApp());
   }, [dispatch, token]);
 
   useEffect(() => {

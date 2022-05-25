@@ -14,7 +14,7 @@ const initialState: UserInitialState = {
   token: localStorage.getItem('token') || '',
 };
 
-export const initializedTC = createAsyncThunk('auth/checkLogged', async (_, { dispatch }) => {
+export const initializedApp = createAsyncThunk('auth/initializedApp', async (_, { dispatch }) => {
   try {
     const res = await apiAuth.checkLogin();
     dispatch(setUser(res.data));
@@ -25,8 +25,8 @@ export const initializedTC = createAsyncThunk('auth/checkLogged', async (_, { di
   }
 });
 
-export const loginUserTC = createAsyncThunk(
-  'auth/login',
+export const loginUser = createAsyncThunk(
+  'auth/loginUser',
   async (userData: { email: string; password: string }, { dispatch }) => {
     try {
       const res = await apiAuth.login(userData.email, userData.password);
@@ -38,8 +38,8 @@ export const loginUserTC = createAsyncThunk(
   },
 );
 
-export const registrationUserTC = createAsyncThunk(
-  'auth/registration',
+export const registrationUser = createAsyncThunk(
+  'auth/registrationUser',
   async (registrationData: RegistrationData, { dispatch }) => {
     try {
       const res = await apiAuth.registration(registrationData);

@@ -10,7 +10,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { AppRoutes } from '../../helpers/routes';
 import { validateEmail } from '../../helpers/validateEmail';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { loginUserTC } from '../../redux/reducer/authReducer';
+import { loginUser } from '../../redux/reducer/authReducer';
 
 import styles from './Login.module.scss';
 
@@ -41,7 +41,7 @@ export const Login = () => {
         return;
       }
 
-      await dispatch(loginUserTC({ email: email.value, password: password.value }));
+      await dispatch(loginUser({ email: email.value, password: password.value }));
       setLoadingStatusBtn(false);
     },
     [dispatch],

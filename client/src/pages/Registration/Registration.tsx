@@ -10,7 +10,7 @@ import { validateEmail } from '../../helpers/validateEmail';
 import { AppRoutes } from '../../helpers/routes';
 import { SexType } from '../../api/auth';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { registrationUserTC } from '../../redux/reducer/authReducer';
+import { registrationUser } from '../../redux/reducer/authReducer';
 import { Select } from '@alfalab/core-components/select';
 
 import styles from './Registration.module.scss';
@@ -59,7 +59,7 @@ export const Registration = () => {
       }
 
       await dispatch(
-        registrationUserTC({
+        registrationUser({
           email: email.value,
           password: password.value,
           nickname: nickname.value,

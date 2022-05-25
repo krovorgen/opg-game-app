@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useCallback, useState } from 'react';
+import React, { SyntheticEvent, useCallback, useMemo, useState } from 'react';
 import { Typography } from '@alfalab/core-components/typography';
 import { Input } from '@alfalab/core-components/input';
 import { PasswordInput } from '@alfalab/core-components/password-input';
@@ -8,48 +8,69 @@ import { Link, Navigate } from 'react-router-dom';
 
 import { validateEmail } from '../../helpers/validateEmail';
 import { AppRoutes } from '../../helpers/routes';
-import { apiAuth } from '../../api/auth';
-import { catchHandler } from '../../helpers/catchHandler';
-import { useAppSelector } from '../../redux/hooks';
+import { SexType } from '../../api/auth';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { registrationUserTC } from '../../redux/reducer/authReducer';
+import { Select } from '@alfalab/core-components/select';
 
 import styles from './Registration.module.scss';
 
 export const Registration = () => {
+  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.user);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
 
+  const options = useMemo(
+    () => [
+      { key: '1', content: 'Мужской', value: SexType.male },
+      { key: '2', content: 'Женский', value: SexType.woman },
+    ],
+    [],
+  );
+
   const changeVisibilityPassword = useCallback(() => {
     setPasswordVisible((v) => !v);
   }, []);
 
-  const submitRegistration = useCallback(async (e: SyntheticEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoadingStatusBtn(true);
-
-    const { email, password, nickname } = e.currentTarget
-      .elements as typeof e.currentTarget.elements & {
-      email: { value: string };
-      password: { value: string };
-      nickname: { value: string };
-    };
-
-    if (!validateEmail(email.value)) {
-      toast.error('Некорректно указана почта');
-      setLoadingStatusBtn(false);
-      return;
-    }
-
-    try {
-      await apiAuth.registration(email.value, password.value, nickname.value);
-      toast.success('Благодарим Вас за регистрацию!');
-    } catch ({ response }) {
-      catchHandler(response);
-    } finally {
-      setLoadingStatusBtn(false);
-    }
+  const [selected, setSelected] = useState([options[0]]);
+  const handleChange = useCallback(({ selectedMultiple }: any) => {
+    setSelected(selectedMultiple);
   }, []);
+
+  const submitRegistration = useCallback(
+    async (e: SyntheticEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoadingStatusBtn(true);
+
+      const { email, password, nickname, sex } = e.currentTarget
+        .elements as typeof e.currentTarget.elements & {
+        email: { value: string };
+        password: { value: string };
+        nickname: { value: string };
+        sex: { value: string };
+      };
+
+      if (!validateEmail(email.value)) {
+        toast.error('Некорректно указана почта');
+        setLoadingStatusBtn(false);
+        return;
+      }
+
+      await dispatch(
+        registrationUserTC({
+          email: email.value,
+          password: password.value,
+          nickname: nickname.value,
+          sex: options[+sex.value - 1].value,
+        }),
+      );
+
+      setLoadingStatusBtn(false);
+    },
+    [dispatch, options],
+  );
 
   if (isLoggedIn) {
     return <Navigate to={AppRoutes.Root} />;
@@ -81,6 +102,15 @@ export const Registration = () => {
             maxLength={50}
             passwordVisible={passwordVisible}
             onPasswordVisibleChange={changeVisibilityPassword}
+          />
+          <Select
+            className={styles.input}
+            options={options}
+            onChange={handleChange}
+            selected={selected}
+            name="sex"
+            block
+            placeholder="Пол"
           />
           <Button
             className={styles.submit}

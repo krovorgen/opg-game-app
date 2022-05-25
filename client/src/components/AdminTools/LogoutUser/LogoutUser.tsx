@@ -1,14 +1,14 @@
 import React, { useCallback } from 'react';
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
 
 import { logout } from '../../../redux/reducer/authReducer';
+import { useAppDispatch } from '../../../redux/hooks';
 
 import stylesRoot from '../AdminTools.module.scss';
 import styles from './LogoutUser.module.scss';
 
 export const LogoutUser = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const showRoutes = useCallback(() => {
     dispatch(logout());

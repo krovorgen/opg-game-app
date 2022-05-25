@@ -1,10 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
 import { AppRoutes } from './helpers/routes';
 import { AdminTools } from './components/AdminTools';
-import { useAppSelector } from './redux/hooks';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { initializedTC } from './redux/reducer/authReducer';
 import { GlobalLoader } from './components/GlobalLoader';
 import { PasswordRecovery } from './pages/PasswordRecovery';
@@ -18,7 +17,7 @@ export const App = () => {
   const userRole = useAppSelector((state) => state.auth.user?.role);
   const token = useAppSelector((state) => state.auth.token);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(initializedTC());
   }, [dispatch, token]);

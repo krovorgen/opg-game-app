@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { apiAuth, UserType } from '../../api/auth';
+import { apiAuth, RegistrationData, UserType } from '../../api/auth';
 import { setInitializedStatus } from './appReducer';
 import { catchHandler } from '../../helpers/catchHandler';
 import { toast } from 'react-toastify';
@@ -31,8 +31,20 @@ export const loginUserTC = createAsyncThunk(
     try {
       const res = await apiAuth.login(userData.email, userData.password);
       dispatch(setToken(res.data.token));
-      dispatch(setInitializedStatus(false));
       toast.success('Вход выполнен успешно');
+    } catch ({ response }) {
+      catchHandler(response);
+    }
+  },
+);
+
+export const registrationUserTC = createAsyncThunk(
+  'auth/registration',
+  async (registrationData: RegistrationData, { dispatch }) => {
+    try {
+      const res = await apiAuth.registration(registrationData);
+      dispatch(setToken(res.data.token));
+      toast.success('Благодарим Вас за регистрацию!');
     } catch ({ response }) {
       catchHandler(response);
     }

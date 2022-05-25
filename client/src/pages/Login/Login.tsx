@@ -6,17 +6,16 @@ import { Button } from '@alfalab/core-components/button';
 import { PasswordInput } from '@alfalab/core-components/password-input';
 import { Link as LinkUI } from '@alfalab/core-components/link';
 import { Link, Navigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { AppRoutes } from '../../helpers/routes';
 import { validateEmail } from '../../helpers/validateEmail';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { loginUserTC } from '../../redux/reducer/authReducer';
 
 import styles from './Login.module.scss';
 
 export const Login = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.auth.user);
 
   const [passwordVisible, setPasswordVisible] = useState(false);

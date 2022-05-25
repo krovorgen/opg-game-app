@@ -70,9 +70,7 @@ export class AuthService {
   }
 
   async setNewPassword(newPassword: string, recoveryCode: string) {
-    const user = this.userRepository.findOne({
-      'emailConfig.recoveryCode': recoveryCode,
-    });
+    const user = await this.userService.getByRecoveryCode(recoveryCode);
     if (!user) {
       throw new BadRequestException([
         `Ссылка на восстановление пароля устарела!`,

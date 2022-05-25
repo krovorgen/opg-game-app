@@ -20,7 +20,7 @@ export class UserService {
   ) {}
 
   async getById(id: number) {
-    return this.userRepository.findOne({ id }, privateFields);
+    return this.userRepository.findOne({ id: id }, privateFields);
   }
 
   async getByEmail(email: string) {
@@ -29,6 +29,15 @@ export class UserService {
 
   async getByNickname(nickname: string) {
     return this.userRepository.findOne({ nickname }, { _id: 0 });
+  }
+
+  async getByRecoveryCode(recoveryCode: string) {
+    return this.userRepository.findOne(
+      {
+        'emailConfig.recoveryCode': recoveryCode,
+      },
+      privateFields,
+    );
   }
 
   async createUser(createUserDto: CreateUserDto) {

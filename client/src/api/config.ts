@@ -1,19 +1,17 @@
 import axios from 'axios';
-
-const BASE_URL = process.env.REACT_APP_API_URI || 'http://localhost:4000/api/';
-const AUTH_URL = process.env.REACT_APP_AUTH_URI || 'http://localhost:4100/api/';
+import { configuration } from '../config/configuration';
 
 export const instance = axios.create({
-  baseURL: BASE_URL,
+  baseURL: configuration().BASE_URL,
 });
 
-function getToken() {
+export function getToken() {
   const token = localStorage.getItem('token');
   return token || '';
 }
 
 export const instanceAuth = axios.create({
-  baseURL: AUTH_URL,
+  baseURL: configuration().AUTH_URL,
 });
 
 instanceAuth.interceptors.request.use((config) => {

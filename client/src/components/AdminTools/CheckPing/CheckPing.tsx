@@ -11,11 +11,10 @@ export const CheckPing = () => {
   const [pingValue, setPingValue] = useState<null | number>(null);
 
   useEffect(() => {
-    const getPingValue = async () => {
+    (async () => {
       const ping = await apiHelpers.checkPing();
       setPingValue(+ping.data.ping);
-    };
-    getPingValue();
+    })();
   }, []);
 
   return (

@@ -15,7 +15,7 @@ import { apiAuth } from '../../api/auth';
 import styles from './PasswordRecovery.module.scss';
 
 export const PasswordRecovery = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
 
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -48,7 +48,7 @@ export const PasswordRecovery = () => {
     [email],
   );
 
-  if (isLoggedIn) {
+  if (user) {
     return <Navigate to={AppRoutes.Root} />;
   }
   return (

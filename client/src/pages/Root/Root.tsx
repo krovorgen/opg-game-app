@@ -7,10 +7,29 @@ import { useAppSelector } from '../../redux/hooks';
 import styles from './Root.module.scss';
 
 export const Root = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
 
-  if (!isLoggedIn) {
+  if (!user) {
     return <Navigate to={AppRoutes.Login} />;
   }
-  return <div className={styles.root}>Root</div>;
+
+  const rows = [];
+  for (let key in user) {
+    rows.push({ key, value: (user as any)[key] });
+  }
+  return (
+    <div className={styles.root}>
+      <table>
+        <tbody>
+          {rows.map((item) => (
+            <tr key={Math.random()}>
+              <td>{item.key}</td>
+              <td>{item.value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ul></ul>
+    </div>
+  );
 };

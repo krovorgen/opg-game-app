@@ -12,7 +12,7 @@ import { apiAuth } from '../../api/auth';
 import styles from './SetNewPassword.module.scss';
 
 export const SetNewPassword = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
   const { recoveryCode } = useParams();
 
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
@@ -44,7 +44,7 @@ export const SetNewPassword = () => {
     [recoveryCode],
   );
 
-  if (isLoggedIn) {
+  if (user) {
     return <Navigate to={AppRoutes.Root} />;
   }
   return (

@@ -17,7 +17,7 @@ import styles from './Registration.module.scss';
 
 export const Registration = () => {
   const dispatch = useAppDispatch();
-  const isLoggedIn = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
@@ -72,7 +72,7 @@ export const Registration = () => {
     [dispatch, options],
   );
 
-  if (isLoggedIn) {
+  if (user) {
     return <Navigate to={AppRoutes.Root} />;
   }
 

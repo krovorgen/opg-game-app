@@ -16,7 +16,7 @@ import styles from './Login.module.scss';
 
 export const Login = () => {
   const dispatch = useAppDispatch();
-  const isLoggedIn = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [loadingStatusBtn, setLoadingStatusBtn] = useState(false);
@@ -47,7 +47,7 @@ export const Login = () => {
     [dispatch],
   );
 
-  if (isLoggedIn) {
+  if (user) {
     return <Navigate to={AppRoutes.Root} />;
   }
   return (

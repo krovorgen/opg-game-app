@@ -1,0 +1,28 @@
+@import "./src/scss/helpers/variables";
+@import "./src/scss/helpers/mixins";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  background-color: rgba(#ccc, 0.3);
+  gap: 8px;
+}
+
+.controls {
+  display: flex;
+  margin-top: auto;
+  gap: 8px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  border-radius: 4px;
+  background-color: rgba(11, 31, 53, 0.07);
+  gap: 8px;
+}

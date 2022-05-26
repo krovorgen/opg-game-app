@@ -37,7 +37,7 @@ export const App = () => {
         <Route path={AppRoutes.PasswordRecovery} element={<PasswordRecovery />} />
         <Route path={AppRoutes.SetNewPassword} element={<SetNewPassword />} />
       </Routes>
-      {true || userRole === 'ADMIN' ? <AdminTools /> : null}
+      {userRole === 'ADMIN' ? <AdminTools /> : null}
     </>
   );
 };

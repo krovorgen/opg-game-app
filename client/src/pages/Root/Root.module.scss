@@ -1,2 +1,10 @@
 @import "./src/scss/helpers/variables";
 @import "./src/scss/helpers/mixins";
+
+.root {
+  height: 100vh;
+}
+
+.element {
+  height: 50vh;
+}

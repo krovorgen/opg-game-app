@@ -12,7 +12,7 @@ services:
   client:
     build: ./client
     restart: always
-    container_name: app-client
+    container_name: client
     depends_on:
       - server
     env_file:

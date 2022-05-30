@@ -29,13 +29,14 @@
 
 .emoji {
   position: relative;
+  display: flex;
   cursor: pointer;
 }
 
 .emojiWrap {
   position: absolute;
-  bottom: calc(100% + 15px);
   left: 50%;
+  bottom: calc(100% + 15px);
   transform: translateX(-50%);
 
   &.visible {

@@ -1,28 +1,48 @@
-import ws from 'ws';
+import Fastify, { FastifyInstance } from 'fastify';
+import websocketPlugin, { SocketStream } from '@fastify/websocket';
+
+import configuration from './config/configuration';
 import { messagesRepository, MessagesType } from './repositories/messages-repository';
 import { runDb } from './repositories/db';
 
-const wss = new ws.Server({ port: 4300 }, () => console.log(`Server started on 4300`));
+const server: FastifyInstance = Fastify({ logger: true });
 
-wss.on('connection', async function (ws) {
-  await runDb();
-  ws.send(JSON.stringify({ messages: await messagesRepository.get() }));
-  ws.on('message', async function (message: MessagesType) {
-    message = JSON.parse(message as unknown as string);
-    switch (message.event) {
-      case 'message':
-        await messagesRepository.create(message);
-        broadcastMessage([message]);
-        break;
-      case 'connection':
-        broadcastMessage([message]);
-        break;
-    }
+server.register(websocketPlugin, {
+  options: {
+    maxPayload: 1048576,
+  },
+});
+
+server.register(async function (fastify: FastifyInstance) {
+  fastify.get('/chat', { websocket: true }, async (connection: SocketStream) => {
+    connection.socket.send(JSON.stringify({ messages: await messagesRepository.get() }));
+
+    connection.socket.on('message', async (message) => {
+      const data: MessagesType = JSON.parse(message.toString());
+      switch (data.event) {
+        case 'message':
+          await messagesRepository.create(data);
+          broadcastMessage([data]);
+          break;
+        case 'connection':
+          broadcastMessage([data]);
+          break;
+      }
+    });
   });
 });
 
 const broadcastMessage = (messages: MessagesType[]) => {
-  wss.clients.forEach((client) => {
+  server.websocketServer.clients.forEach((client) => {
     client.send(JSON.stringify({ messages }));
   });
 };
+
+server.listen({ port: +configuration().PORT, host: '0.0.0.0' }, async (err, address) => {
+  await runDb();
+  if (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+  console.log(`Server is now listening on ${address}`);
+});

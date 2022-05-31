@@ -8,11 +8,11 @@ import { MessageType } from '../Chat';
 import styles from '../Chat.module.scss';
 
 type ChatFormProps = {
-  socket: WebSocket;
+  ws: WebSocket;
   currentUser: UserType;
 };
 
-export const ChatForm = memo(({ socket, currentUser }: ChatFormProps) => {
+export const ChatForm = memo(({ ws, currentUser }: ChatFormProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const onChangeInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -31,10 +31,10 @@ export const ChatForm = memo(({ socket, currentUser }: ChatFormProps) => {
         message: message.value,
         role: currentUser.role,
       };
-      socket.send(JSON.stringify(newMessage));
+      ws.send(JSON.stringify(newMessage));
       setInputValue('');
     },
-    [currentUser, socket],
+    [currentUser, ws],
   );
 
   return (

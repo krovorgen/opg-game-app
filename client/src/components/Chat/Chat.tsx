@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import cn from 'classnames';
 import dayjs from 'dayjs';
 import { Loader } from '@alfalab/core-components/loader';
@@ -30,6 +30,24 @@ export const Chat = memo(({ addClass }: ChatProps) => {
   const [messages, setMessages] = useState<MessageType[]>([]);
   const [ws, setWs] = useState(new WebSocket(URL));
 
+  const memoMessages = useMemo(
+    () =>
+      messages.map((item, index) => (
+        <div key={index} className={styles.message}>
+          {dayjs(item.date).format('HH:MM:ss')}{' '}
+          <span
+            className={cn(styles.nickname, {
+              [styles.moder]: item.role === 'MODERATOR',
+              [styles.admin]: item.role === 'ADMIN',
+            })}>
+            {item.nickname}
+          </span>
+          : {item.message}
+        </div>
+      )),
+    [messages],
+  );
+
   useEffect(() => {
     ws.onopen = () => {
       setConnected(true);
@@ -54,27 +72,8 @@ export const Chat = memo(({ addClass }: ChatProps) => {
 
   return (
     <div className={cn(styles.root, addClass)}>
-      <div className={styles.messages}>
-        {connected ? (
-          messages.length !== 0 &&
-          messages.map((item, index) => (
-            <div key={index} className={styles.message}>
-              {dayjs(item.date).format('HH:MM:ss')}{' '}
-              <span
-                className={cn(styles.nickname, {
-                  [styles.moder]: item.role === 'MODERATOR',
-                  [styles.admin]: item.role === 'ADMIN',
-                })}>
-                {item.nickname}
-              </span>
-              : {item.message}
-            </div>
-          ))
-        ) : (
-          <Loader />
-        )}
-      </div>
-      <ChatForm socket={ws} currentUser={currentUser} />
+      <div className={styles.messages}>{connected ? memoMessages : <Loader />}</div>
+      <ChatForm ws={ws} currentUser={currentUser} />
     </div>
   );
 });

@@ -63,3 +63,17 @@ services:
       - mongodb
     volumes:
       - ./email:/app:cached
+  chat:
+    build: ./chat
+    restart: always
+    container_name: chat
+    ports:
+      - '4300:4300'
+    env_file:
+      - .env.development
+    links:
+      - mongodb
+    depends_on:
+      - mongodb
+    volumes:
+      - ./chat:/app:cached

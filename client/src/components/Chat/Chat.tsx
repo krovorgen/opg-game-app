@@ -1,12 +1,13 @@
 import React, { memo, useEffect, useState } from 'react';
 import cn from 'classnames';
+import dayjs from 'dayjs';
 import { Loader } from '@alfalab/core-components/loader';
 
 import { useAppSelector } from '../../redux/hooks';
 import { ChatForm } from './ChatForm/ChatForm';
+import { UserRoleType } from '../../api/auth';
 
 import styles from './Chat.module.scss';
-import dayjs from 'dayjs';
 
 type ChatProps = {
   addClass?: string;
@@ -17,6 +18,7 @@ export type MessageType = {
   date: Date;
   nickname: string;
   message: string;
+  role: UserRoleType;
 };
 
 const URL = 'ws://localhost:4300';
@@ -36,6 +38,7 @@ export const Chat = memo(({ addClass }: ChatProps) => {
           event: 'connection',
           date: new Date(),
           nickname: currentUser.nickname,
+          role: currentUser.role,
           message: 'ПОДКЛЮЧИЛСЯ',
         }),
       );
@@ -56,7 +59,15 @@ export const Chat = memo(({ addClass }: ChatProps) => {
           messages.length !== 0 &&
           messages.map((item, index) => (
             <div key={index} className={styles.message}>
-              {dayjs(item.date).format('HH:MM:ss')} {item.nickname}: {item.message}
+              {dayjs(item.date).format('HH:MM:ss')}{' '}
+              <span
+                className={cn(styles.nickname, {
+                  [styles.moder]: item.role === 'MODERATOR',
+                  [styles.admin]: item.role === 'ADMIN',
+                })}>
+                {item.nickname}
+              </span>
+              : {item.message}
             </div>
           ))
         ) : (

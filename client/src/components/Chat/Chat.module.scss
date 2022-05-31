@@ -27,23 +27,18 @@
   gap: 8px;
 }
 
+.nickname {
+  &.moder {
+    color: rgb(2, 138, 227);
+  }
+
+  &.admin {
+    color: #f00;
+  }
+}
+
 .emoji {
   position: relative;
   display: flex;
   cursor: pointer;
-}
-
-.emojiWrap {
-  position: absolute;
-  left: 50%;
-  bottom: calc(100% + 15px);
-  transform: translateX(-50%);
-
-  &.visible {
-    opacity: 0;
-    padding: 0;
-    height: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-  }
 }

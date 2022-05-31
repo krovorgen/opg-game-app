@@ -2,18 +2,17 @@ import React, { ChangeEvent, memo, SyntheticEvent, useCallback, useState } from 
 import { Input } from '@alfalab/core-components/input';
 import { Button } from '@alfalab/core-components/button';
 
-import { useAppSelector } from '../../../redux/hooks';
+import { UserType } from '../../../api/auth';
 import { MessageType } from '../Chat';
 
 import styles from '../Chat.module.scss';
 
 type ChatFormProps = {
   socket: WebSocket;
+  currentUser: UserType;
 };
 
-export const ChatForm = memo(({ socket }: ChatFormProps) => {
-  const currentUser = useAppSelector((state) => state.auth.user!);
-
+export const ChatForm = memo(({ socket, currentUser }: ChatFormProps) => {
   const [inputValue, setInputValue] = useState('');
 
   const onChangeInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {

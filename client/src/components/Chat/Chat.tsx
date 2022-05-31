@@ -21,7 +21,7 @@ export type MessageType = {
   role: UserRoleType;
 };
 
-const URL = 'ws://localhost:4300';
+const URL = 'ws://localhost:4300/chat';
 
 export const Chat = memo(({ addClass }: ChatProps) => {
   const currentUser = useAppSelector((state) => state.auth.user!);
@@ -74,7 +74,7 @@ export const Chat = memo(({ addClass }: ChatProps) => {
           <Loader />
         )}
       </div>
-      <ChatForm socket={ws} />
+      <ChatForm socket={ws} currentUser={currentUser} />
     </div>
   );
 });

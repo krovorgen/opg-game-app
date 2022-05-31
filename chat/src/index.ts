@@ -2,12 +2,7 @@ import ws from 'ws';
 import { messagesRepository, MessagesType } from './repositories/messages-repository';
 import { runDb } from './repositories/db';
 
-const wss = new ws.Server(
-  {
-    port: 4300,
-  },
-  () => console.log(`Server started on 4300`)
-);
+const wss = new ws.Server({ port: 4300 }, () => console.log(`Server started on 4300`));
 
 wss.on('connection', async function (ws) {
   await runDb();
@@ -26,8 +21,8 @@ wss.on('connection', async function (ws) {
   });
 });
 
-function broadcastMessage(message: MessagesType[]) {
+const broadcastMessage = (messages: MessagesType[]) => {
   wss.clients.forEach((client) => {
-    client.send(JSON.stringify({ messages: message }));
+    client.send(JSON.stringify({ messages }));
   });
-}
+};

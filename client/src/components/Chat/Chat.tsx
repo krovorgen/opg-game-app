@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { Loader } from '@alfalab/core-components/loader';
 
 import { useAppSelector } from '../../redux/hooks';
-import { ChatForm } from './ChatForm/ChatForm';
+import { ChatForm } from './ChatForm';
 import { UserRoleType } from '../../api/auth';
 
 import styles from './Chat.module.scss';

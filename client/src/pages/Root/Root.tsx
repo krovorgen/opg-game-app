@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRoutes } from '../../helpers/routes';
 import { useAppSelector } from '../../redux/hooks';
 import { Chat } from '../../components/Chat';
+import { TableUser } from './TableUser/TableUser';
 
 import styles from './Root.module.scss';
 
@@ -14,23 +15,10 @@ export const Root = () => {
     return <Navigate to={AppRoutes.Login} />;
   }
 
-  const rows = [];
-  for (let key in user) {
-    rows.push({ key, value: (user as any)[key] });
-  }
   return (
     <div className={styles.root}>
       <div className={styles.element}>
-        <table>
-          <tbody>
-            {rows.map((item) => (
-              <tr key={Math.random()}>
-                <td>{item.key}</td>
-                <td>{item.value}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <TableUser user={user} />
       </div>
       <Chat addClass={styles.element} />
     </div>

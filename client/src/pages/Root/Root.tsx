@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { AppRoutes } from '../../helpers/routes';
 import { useAppSelector } from '../../redux/hooks';
 import { Chat } from '../../components/Chat';
-import { TableUser } from './TableUser/TableUser';
+import { TableUser } from './TableUser';
 
 import styles from './Root.module.scss';
 

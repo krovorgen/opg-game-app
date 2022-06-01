@@ -15,8 +15,6 @@ server.register(websocketPlugin, {
 
 server.register(async function (fastify: FastifyInstance) {
   fastify.get('/chat', { websocket: true }, async (connection: SocketStream) => {
-    connection.socket.send(JSON.stringify({ messages: await messagesRepository.get() }));
-
     connection.socket.on('message', async (message) => {
       const newMessageDto: MessagesType = JSON.parse(message.toString());
       switch (newMessageDto.event) {
@@ -25,6 +23,7 @@ server.register(async function (fastify: FastifyInstance) {
           broadcastMessage([newMessageDto]);
           break;
         case 'connection':
+          connection.socket.send(JSON.stringify({ messages: await messagesRepository.get() }));
           broadcastMessage([newMessageDto]);
           break;
       }

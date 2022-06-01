@@ -18,14 +18,14 @@ server.register(async function (fastify: FastifyInstance) {
     connection.socket.send(JSON.stringify({ messages: await messagesRepository.get() }));
 
     connection.socket.on('message', async (message) => {
-      const data: MessagesType = JSON.parse(message.toString());
-      switch (data.event) {
+      const newMessageDto: MessagesType = JSON.parse(message.toString());
+      switch (newMessageDto.event) {
         case 'message':
-          await messagesRepository.create(data);
-          broadcastMessage([data]);
+          await messagesRepository.create(newMessageDto);
+          broadcastMessage([newMessageDto]);
           break;
         case 'connection':
-          broadcastMessage([data]);
+          broadcastMessage([newMessageDto]);
           break;
       }
     });

@@ -4,7 +4,6 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/index.ts",
     "dev": "nodemon dist/index.js",
     "watch": "tsc -w",
     "build:start": "./node_modules/.bin/tsc --outDir ./dist && node dist/index.js"

@@ -4,9 +4,9 @@ import { Navigate } from 'react-router-dom';
 import { AppRoutes } from '../../helpers/routes';
 import { useAppSelector } from '../../redux/hooks';
 import { Chat } from '../../components/Chat';
+import { TableUser } from './TableUser';
 
 import styles from './Root.module.scss';
-import { Canvas } from './Canvas';
 
 export const Root = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -18,8 +18,7 @@ export const Root = () => {
   return (
     <div className={styles.root}>
       <div className={styles.element}>
-        <Canvas />
-        {/*<TableUser user={user} />*/}
+        <TableUser user={user} />
       </div>
       <Chat addClass={styles.element} />
     </div>

@@ -8,6 +8,7 @@ import { AppRoutes } from '../../helpers/routes';
 import { useAppSelector } from '../../redux/hooks';
 import { catchHandler } from '../../helpers/catchHandler';
 import { apiAuth } from '../../api/auth';
+import { VideoBg } from '../../components/VideoBg';
 
 import styles from './SetNewPassword.module.scss';
 
@@ -48,56 +49,59 @@ export const SetNewPassword = () => {
     return <Navigate to={AppRoutes.Root} />;
   }
   return (
-    <div className={styles.root}>
-      <div className={styles.box}>
-        {step === 1 && (
-          <>
-            <Typography.Title className={styles.title} tag="h1" view="small">
-              Укажите новый пароль
-            </Typography.Title>
-            <form className={styles.form} onSubmit={submitLogin}>
-              <PasswordInput
-                className={styles.input}
-                label="Пароль"
-                name="password"
-                size="s"
-                block
-                passwordVisible={passwordVisible}
-                onPasswordVisibleChange={changeVisibilityPassword}
-              />
-              <Button
-                className={styles.submit}
-                type="submit"
-                size="s"
-                block
-                view="primary"
-                loading={loadingStatusBtn}>
-                Восстановить
-              </Button>
-            </form>
-            <Link to={AppRoutes.Login}>
-              <Button Component="span" size="s" block>
-                Войти
-              </Button>
-            </Link>
-          </>
-        )}
-        {step === 2 && (
-          <>
-            <Typography.Title className={styles.title} tag="h1" view="small">
-              Пароль успешно восстановлен
-            </Typography.Title>
-            <Typography.Text className={styles.text} tag="p">
-              Для продолжения необходимо войти
-            </Typography.Text>
-            <Link to={AppRoutes.Login}>
-              <Button Component="span" size="s" block>
-                Войти
-              </Button>
-            </Link>
-          </>
-        )}
+    <>
+      <VideoBg />
+      <div className={styles.root}>
+        <div className={styles.box}>
+          {step === 1 && (
+            <>
+              <Typography.Title className={styles.title} tag="h1" view="small">
+                Укажите новый пароль
+              </Typography.Title>
+              <form className={styles.form} onSubmit={submitLogin}>
+                <PasswordInput
+                  className={styles.input}
+                  label="Пароль"
+                  name="password"
+                  size="s"
+                  block
+                  passwordVisible={passwordVisible}
+                  onPasswordVisibleChange={changeVisibilityPassword}
+                />
+                <Button
+                  className={styles.submit}
+                  type="submit"
+                  size="s"
+                  block
+                  view="primary"
+                  loading={loadingStatusBtn}>
+                  Восстановить
+                </Button>
+              </form>
+              <Link to={AppRoutes.Login}>
+                <Button Component="span" size="s" block>
+                  Войти
+                </Button>
+              </Link>
+            </>
+          )}
+          {step === 2 && (
+            <>
+              <Typography.Title className={styles.title} tag="h1" view="small">
+                Пароль успешно восстановлен
+              </Typography.Title>
+              <Typography.Text className={styles.text} tag="p">
+                Для продолжения необходимо войти
+              </Typography.Text>
+              <Link to={AppRoutes.Login}>
+                <Button Component="span" size="s" block>
+                  Войти
+                </Button>
+              </Link>
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };

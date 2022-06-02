@@ -12,6 +12,7 @@ import { SexType } from '../../api/auth';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { registrationUser } from '../../redux/reducer/authReducer';
 import { Select } from '@alfalab/core-components/select';
+import { VideoBg } from '../../components/VideoBg';
 
 import styles from './Registration.module.scss';
 
@@ -77,58 +78,61 @@ export const Registration = () => {
   }
 
   return (
-    <div className={styles.root}>
-      <div className={styles.box}>
-        <Typography.Title className={styles.title} tag="h1" view="small">
-          Регистрация
-        </Typography.Title>
-        <form className={styles.form} onSubmit={submitRegistration}>
-          <Input className={styles.input} label="Почта" name="email" size="s" block />
-          <Input
-            className={styles.input}
-            label="Имя в игре"
-            name="nickname"
-            size="s"
-            block
-            maxLength={30}
-            defaultValue={`Игрок ${+new Date()}`}
-          />
-          <PasswordInput
-            className={styles.input}
-            label="Пароль"
-            name="password"
-            size="s"
-            block
-            maxLength={50}
-            passwordVisible={passwordVisible}
-            onPasswordVisibleChange={changeVisibilityPassword}
-          />
-          <Select
-            className={styles.input}
-            options={options}
-            onChange={handleChange}
-            selected={selected}
-            name="sex"
-            block
-            placeholder="Пол"
-          />
-          <Button
-            className={styles.submit}
-            type="submit"
-            size="s"
-            block
-            view="primary"
-            loading={loadingStatusBtn}>
-            Зарегистрироваться
-          </Button>
-        </form>
+    <>
+      <VideoBg />
+      <div className={styles.root}>
+        <div className={styles.box}>
+          <Typography.Title className={styles.title} tag="h1" view="small">
+            Регистрация
+          </Typography.Title>
+          <form className={styles.form} onSubmit={submitRegistration}>
+            <Input className={styles.input} label="Почта" name="email" size="s" block />
+            <Input
+              className={styles.input}
+              label="Имя в игре"
+              name="nickname"
+              size="s"
+              block
+              maxLength={30}
+              defaultValue={`Игрок ${+new Date()}`}
+            />
+            <PasswordInput
+              className={styles.input}
+              label="Пароль"
+              name="password"
+              size="s"
+              block
+              maxLength={50}
+              passwordVisible={passwordVisible}
+              onPasswordVisibleChange={changeVisibilityPassword}
+            />
+            <Select
+              className={styles.input}
+              options={options}
+              onChange={handleChange}
+              selected={selected}
+              name="sex"
+              block
+              placeholder="Пол"
+            />
+            <Button
+              className={styles.submit}
+              type="submit"
+              size="s"
+              block
+              view="primary"
+              loading={loadingStatusBtn}>
+              Зарегистрироваться
+            </Button>
+          </form>
 
-        <Link to={AppRoutes.Login}>
-          <Button Component="span" size="s" block>
-            Войти в аккаунт
-          </Button>
-        </Link>
+          <Link to={AppRoutes.Login}>
+            <Button Component="span" size="s" block>
+              Войти в аккаунт
+            </Button>
+          </Link>
+        </div>
       </div>
-    </div>
+    </>
   );
 };

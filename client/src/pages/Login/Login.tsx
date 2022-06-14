@@ -31,18 +31,21 @@ export const Login = () => {
       e.preventDefault();
       setLoadingStatusBtn(true);
 
-      const { email, password } = e.currentTarget.elements as typeof e.currentTarget.elements & {
+      const {
+        email: { value: email },
+        password: { value: password },
+      } = e.currentTarget.elements as typeof e.currentTarget.elements & {
         email: { value: string };
         password: { value: string };
       };
 
-      if (!validateEmail(email.value)) {
+      if (!validateEmail(email)) {
         toast.error('Некорректно указана почта');
         setLoadingStatusBtn(false);
         return;
       }
 
-      await dispatch(loginUser({ email: email.value, password: password.value }));
+      await dispatch(loginUser({ email, password }));
       setLoadingStatusBtn(false);
     },
     [dispatch],

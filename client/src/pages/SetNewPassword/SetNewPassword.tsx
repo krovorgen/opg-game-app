@@ -29,12 +29,14 @@ export const SetNewPassword = () => {
       e.preventDefault();
       setLoadingStatusBtn(true);
 
-      const { password } = e.currentTarget.elements as typeof e.currentTarget.elements & {
+      const {
+        password: { value: password },
+      } = e.currentTarget.elements as typeof e.currentTarget.elements & {
         password: { value: string };
       };
 
       try {
-        await apiAuth.setNewPassword(recoveryCode as string, password.value);
+        await apiAuth.setNewPassword(recoveryCode as string, password);
         setStep(2);
       } catch ({ response }) {
         catchHandler(response);

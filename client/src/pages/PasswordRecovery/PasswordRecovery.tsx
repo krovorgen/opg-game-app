@@ -49,9 +49,8 @@ export const PasswordRecovery = () => {
     [email],
   );
 
-  if (user) {
-    return <Navigate to={AppRoutes.Root} />;
-  }
+  if (user) return <Navigate to={AppRoutes.Root} />;
+
   return (
     <>
       <VideoBg />

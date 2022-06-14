@@ -70,9 +70,7 @@ export const Registration = () => {
     [dispatch],
   );
 
-  if (user) {
-    return <Navigate to={AppRoutes.Root} />;
-  }
+  if (user) return <Navigate to={AppRoutes.Root} />;
 
   return (
     <>

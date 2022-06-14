@@ -11,9 +11,7 @@ import styles from './Root.module.scss';
 export const Root = () => {
   const user = useAppSelector((state) => state.auth.user);
 
-  if (!user) {
-    return <Navigate to={AppRoutes.Login} />;
-  }
+  if (!user) return <Navigate to={AppRoutes.Login} />;
 
   return (
     <div className={styles.root}>

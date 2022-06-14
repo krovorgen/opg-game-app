@@ -48,9 +48,8 @@ export const Login = () => {
     [dispatch],
   );
 
-  if (user) {
-    return <Navigate to={AppRoutes.Root} />;
-  }
+  if (user) return <Navigate to={AppRoutes.Root} />;
+
   return (
     <>
       <VideoBg />

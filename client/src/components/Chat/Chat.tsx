@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import cn from 'classnames';
 import dayjs from 'dayjs';
-import { Loader } from '@alfalab/core-components/loader';
+import { Loader } from '@alfalab/core-components/loader/modern';
 
 import { useAppSelector } from '../../redux/hooks';
 import { ChatForm } from './ChatForm';

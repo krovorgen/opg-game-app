@@ -1,11 +1,11 @@
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Typography } from '@alfalab/core-components/typography';
-import { Input } from '@alfalab/core-components/input';
-import { Button } from '@alfalab/core-components/button';
-import { PasswordInput } from '@alfalab/core-components/password-input';
-import { Link as LinkUI } from '@alfalab/core-components/link';
 import { Link, Navigate } from 'react-router-dom';
+import { Typography } from '@alfalab/core-components/typography/modern';
+import { Input } from '@alfalab/core-components/input/modern';
+import { Button } from '@alfalab/core-components/button/modern';
+import { PasswordInput } from '@alfalab/core-components/password-input/modern';
+import { Link as LinkUI } from '@alfalab/core-components/link/modern';
 
 import { AppRoutes } from '../../helpers/routes';
 import { validateEmail } from '../../helpers/validateEmail';

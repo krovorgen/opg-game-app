@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useCallback, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
-import { Button } from '@alfalab/core-components/button';
-import { Typography } from '@alfalab/core-components/typography';
-import { PasswordInput } from '@alfalab/core-components/password-input';
+import { Button } from '@alfalab/core-components/button/modern';
+import { Typography } from '@alfalab/core-components/typography/modern';
+import { PasswordInput } from '@alfalab/core-components/password-input/modern';
 
 import { AppRoutes } from '../../helpers/routes';
 import { useAppSelector } from '../../redux/hooks';

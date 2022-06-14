@@ -1,8 +1,8 @@
 import React, { SyntheticEvent, useCallback, useMemo, useState } from 'react';
-import { Typography } from '@alfalab/core-components/typography';
-import { Input } from '@alfalab/core-components/input';
-import { PasswordInput } from '@alfalab/core-components/password-input';
-import { Button } from '@alfalab/core-components/button';
+import { Typography } from '@alfalab/core-components/typography/modern';
+import { Input } from '@alfalab/core-components/input/modern';
+import { PasswordInput } from '@alfalab/core-components/password-input/modern';
+import { Button } from '@alfalab/core-components/button/modern';
 import { toast } from 'react-toastify';
 import { Link, Navigate } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ import { AppRoutes } from '../../helpers/routes';
 import { SexType } from '../../api/auth';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { registrationUser } from '../../redux/reducer/authReducer';
-import { Select } from '@alfalab/core-components/select';
+import { Select } from '@alfalab/core-components/select/modern';
 import { VideoBg } from '../../components/VideoBg';
 
 import styles from './Registration.module.scss';

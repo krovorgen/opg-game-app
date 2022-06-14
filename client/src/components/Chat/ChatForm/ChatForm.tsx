@@ -1,6 +1,6 @@
 import React, { ChangeEvent, memo, SyntheticEvent, useCallback, useState } from 'react';
-import { Input } from '@alfalab/core-components/input';
-import { Button } from '@alfalab/core-components/button';
+import { Input } from '@alfalab/core-components/input/modern';
+import { Button } from '@alfalab/core-components/button/modern';
 
 import { UserType } from '../../../api/auth';
 import { MessageType } from '../Chat';

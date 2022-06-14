@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import { Loader } from '@alfalab/core-components/loader';
+import { Loader } from '@alfalab/core-components/loader/modern';
 
 import { apiHelpers } from '../../../api/helpers';
 

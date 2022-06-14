@@ -64,6 +64,7 @@ export const SetNewPassword = () => {
                   label="Пароль"
                   name="password"
                   size="s"
+                  autoComplete="on"
                   block
                   passwordVisible={passwordVisible}
                   onPasswordVisibleChange={changeVisibilityPassword}

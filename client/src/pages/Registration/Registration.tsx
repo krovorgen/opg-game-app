@@ -25,8 +25,8 @@ export const Registration = () => {
 
   const options = useMemo(
     () => [
-      { key: '1', content: 'Мужской', value: SexType.male },
-      { key: '2', content: 'Женский', value: SexType.woman },
+      { key: SexType.male, content: 'Мужской', value: SexType.male },
+      { key: SexType.woman, content: 'Женский', value: SexType.woman },
     ],
     [],
   );
@@ -45,32 +45,29 @@ export const Registration = () => {
       e.preventDefault();
       setLoadingStatusBtn(true);
 
-      const { email, password, nickname, sex } = e.currentTarget
-        .elements as typeof e.currentTarget.elements & {
+      const {
+        email: { value: email },
+        password: { value: password },
+        nickname: { value: nickname },
+        sex: { value: sex },
+      } = e.currentTarget.elements as typeof e.currentTarget.elements & {
         email: { value: string };
         password: { value: string };
         nickname: { value: string };
-        sex: { value: string };
+        sex: { value: SexType };
       };
 
-      if (!validateEmail(email.value)) {
+      if (!validateEmail(email)) {
         toast.error('Некорректно указана почта');
         setLoadingStatusBtn(false);
         return;
       }
 
-      await dispatch(
-        registrationUser({
-          email: email.value,
-          password: password.value,
-          nickname: nickname.value,
-          sex: options[+sex.value - 1].value,
-        }),
-      );
+      await dispatch(registrationUser({ email, password, nickname, sex }));
 
       setLoadingStatusBtn(false);
     },
-    [dispatch, options],
+    [dispatch],
   );
 
   if (user) {
@@ -102,6 +99,7 @@ export const Registration = () => {
               name="password"
               size="s"
               block
+              autoComplete="on"
               maxLength={50}
               passwordVisible={passwordVisible}
               onPasswordVisibleChange={changeVisibilityPassword}

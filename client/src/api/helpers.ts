@@ -1,7 +1,9 @@
-import { instance } from './config';
+import { Api } from './api';
 
-export const apiHelpers = {
+class ApiHelpers extends Api {
   checkPing() {
-    return instance.post<{ ping: string }>('ping', { frontTime: new Date() });
-  },
-};
+    return this.instance.post<{ ping: string }>('ping', { frontTime: new Date() });
+  }
+}
+
+export const apiHelpers = new ApiHelpers();
